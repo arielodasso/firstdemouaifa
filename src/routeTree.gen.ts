@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgenteRouteImport } from './routes/agente'
+import { Route as ClubRouteImport } from './routes/club'
 import { Route as AgenteIndexRouteImport } from './routes/agente.index'
 import { Route as AgenteAuditoriaRouteImport } from './routes/agente.auditoria'
 import { Route as AgenteCarteraRouteImport } from './routes/agente.cartera'
@@ -19,6 +20,10 @@ import { Route as AgenteNetworkingRouteImport } from './routes/agente.networking
 import { Route as AgentePerfilRouteImport } from './routes/agente.perfil'
 import { Route as AgenteSemilleroRouteImport } from './routes/agente.semillero'
 import { Route as AgenteValuacionRouteImport } from './routes/agente.valuacion'
+import { Route as ClubIndexRouteImport } from './routes/club.index'
+import { Route as ClubAgentesRouteImport } from './routes/club.agentes'
+import { Route as ClubMercadoRouteImport } from './routes/club.mercado'
+import { Route as ClubSemilleroRouteImport } from './routes/club.semillero'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const AgenteRoute = AgenteRouteImport.update({
   id: '/agente',
   path: '/agente',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClubRoute = ClubRouteImport.update({
+  id: '/club',
+  path: '/club',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgenteIndexRoute = AgenteIndexRouteImport.update({
@@ -70,10 +80,31 @@ const AgenteValuacionRoute = AgenteValuacionRouteImport.update({
   path: '/valuacion',
   getParentRoute: () => AgenteRoute,
 } as any)
+const ClubIndexRoute = ClubIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ClubRoute,
+} as any)
+const ClubAgentesRoute = ClubAgentesRouteImport.update({
+  id: '/agentes',
+  path: '/agentes',
+  getParentRoute: () => ClubRoute,
+} as any)
+const ClubMercadoRoute = ClubMercadoRouteImport.update({
+  id: '/mercado',
+  path: '/mercado',
+  getParentRoute: () => ClubRoute,
+} as any)
+const ClubSemilleroRoute = ClubSemilleroRouteImport.update({
+  id: '/semillero',
+  path: '/semillero',
+  getParentRoute: () => ClubRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
+  '/club': typeof ClubRouteWithChildren
   '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
   '/agente/mercado': typeof AgenteMercadoRoute
@@ -81,7 +112,11 @@ export interface FileRoutesByFullPath {
   '/agente/perfil': typeof AgentePerfilRoute
   '/agente/semillero': typeof AgenteSemilleroRoute
   '/agente/valuacion': typeof AgenteValuacionRoute
+  '/club/agentes': typeof ClubAgentesRoute
+  '/club/mercado': typeof ClubMercadoRoute
+  '/club/semillero': typeof ClubSemilleroRoute
   '/agente/': typeof AgenteIndexRoute
+  '/club/': typeof ClubIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,12 +127,17 @@ export interface FileRoutesByTo {
   '/agente/perfil': typeof AgentePerfilRoute
   '/agente/semillero': typeof AgenteSemilleroRoute
   '/agente/valuacion': typeof AgenteValuacionRoute
+  '/club/agentes': typeof ClubAgentesRoute
+  '/club/mercado': typeof ClubMercadoRoute
+  '/club/semillero': typeof ClubSemilleroRoute
   '/agente': typeof AgenteIndexRoute
+  '/club': typeof ClubIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
+  '/club': typeof ClubRouteWithChildren
   '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
   '/agente/mercado': typeof AgenteMercadoRoute
@@ -105,13 +145,18 @@ export interface FileRoutesById {
   '/agente/perfil': typeof AgentePerfilRoute
   '/agente/semillero': typeof AgenteSemilleroRoute
   '/agente/valuacion': typeof AgenteValuacionRoute
+  '/club/agentes': typeof ClubAgentesRoute
+  '/club/mercado': typeof ClubMercadoRoute
+  '/club/semillero': typeof ClubSemilleroRoute
   '/agente/': typeof AgenteIndexRoute
+  '/club/': typeof ClubIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/agente'
+    | '/club'
     | '/agente/auditoria'
     | '/agente/cartera'
     | '/agente/mercado'
@@ -119,7 +164,11 @@ export interface FileRouteTypes {
     | '/agente/perfil'
     | '/agente/semillero'
     | '/agente/valuacion'
+    | '/club/agentes'
+    | '/club/mercado'
+    | '/club/semillero'
     | '/agente/'
+    | '/club/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,11 +179,16 @@ export interface FileRouteTypes {
     | '/agente/perfil'
     | '/agente/semillero'
     | '/agente/valuacion'
+    | '/club/agentes'
+    | '/club/mercado'
+    | '/club/semillero'
     | '/agente'
+    | '/club'
   id:
     | '__root__'
     | '/'
     | '/agente'
+    | '/club'
     | '/agente/auditoria'
     | '/agente/cartera'
     | '/agente/mercado'
@@ -142,12 +196,17 @@ export interface FileRouteTypes {
     | '/agente/perfil'
     | '/agente/semillero'
     | '/agente/valuacion'
+    | '/club/agentes'
+    | '/club/mercado'
+    | '/club/semillero'
     | '/agente/'
+    | '/club/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgenteRoute: typeof AgenteRouteWithChildren
+  ClubRoute: typeof ClubRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -164,6 +223,13 @@ declare module '@tanstack/react-router' {
       path: '/agente'
       fullPath: '/agente'
       preLoaderRoute: typeof AgenteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/club': {
+      id: '/club'
+      path: '/club'
+      fullPath: '/club'
+      preLoaderRoute: typeof ClubRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agente/': {
@@ -222,6 +288,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgenteValuacionRouteImport
       parentRoute: typeof AgenteRoute
     }
+    '/club/': {
+      id: '/club/'
+      path: '/'
+      fullPath: '/club/'
+      preLoaderRoute: typeof ClubIndexRouteImport
+      parentRoute: typeof ClubRoute
+    }
+    '/club/agentes': {
+      id: '/club/agentes'
+      path: '/agentes'
+      fullPath: '/club/agentes'
+      preLoaderRoute: typeof ClubAgentesRouteImport
+      parentRoute: typeof ClubRoute
+    }
+    '/club/mercado': {
+      id: '/club/mercado'
+      path: '/mercado'
+      fullPath: '/club/mercado'
+      preLoaderRoute: typeof ClubMercadoRouteImport
+      parentRoute: typeof ClubRoute
+    }
+    '/club/semillero': {
+      id: '/club/semillero'
+      path: '/semillero'
+      fullPath: '/club/semillero'
+      preLoaderRoute: typeof ClubSemilleroRouteImport
+      parentRoute: typeof ClubRoute
+    }
   }
 }
 
@@ -250,9 +344,26 @@ const AgenteRouteChildren: AgenteRouteChildren = {
 const AgenteRouteWithChildren =
   AgenteRoute._addFileChildren(AgenteRouteChildren)
 
+interface ClubRouteChildren {
+  ClubAgentesRoute: typeof ClubAgentesRoute
+  ClubMercadoRoute: typeof ClubMercadoRoute
+  ClubSemilleroRoute: typeof ClubSemilleroRoute
+  ClubIndexRoute: typeof ClubIndexRoute
+}
+
+const ClubRouteChildren: ClubRouteChildren = {
+  ClubAgentesRoute: ClubAgentesRoute,
+  ClubMercadoRoute: ClubMercadoRoute,
+  ClubSemilleroRoute: ClubSemilleroRoute,
+  ClubIndexRoute: ClubIndexRoute,
+}
+
+const ClubRouteWithChildren = ClubRoute._addFileChildren(ClubRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgenteRoute: AgenteRouteWithChildren,
+  ClubRoute: ClubRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
