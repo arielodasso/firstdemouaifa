@@ -73,7 +73,7 @@ function MiVidriera() {
               {jugador.posicion} · {jugador.edad} años · {jugador.club}
             </p>
 
-            {on.multimedia ? (
+            {on["multimedia"] ? (
               <div className="surface-institutional mt-4 flex aspect-video items-center justify-center rounded-sm">
                 <div className="text-center">
                   <PlayCircle className="mx-auto h-9 w-9 text-gold" />
@@ -88,7 +88,7 @@ function MiVidriera() {
               </p>
             )}
 
-            {on.rendimiento ? (
+            {on["rendimiento"] ? (
               <ul className="mt-4 space-y-1.5 text-sm">
                 {rendimiento.map((r) => (
                   <li key={r.temporada} className="flex justify-between">
@@ -107,12 +107,12 @@ function MiVidriera() {
               Valuación estimada: USD {v.valuacionMin}M — {v.valuacionMax}M
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              {on.contractual
+              {on["contractual"]
                 ? "Datos contractuales visibles para partes habilitadas."
                 : "Datos contractuales reservados."}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              {on.contacto
+              {on["contacto"]
                 ? "Contacto directo habilitado."
                 : "Contacto únicamente a través del representante."}
             </p>
