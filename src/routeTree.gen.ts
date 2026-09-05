@@ -12,8 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgenteRouteImport } from './routes/agente'
 import { Route as AgenteIndexRouteImport } from './routes/agente.index'
+import { Route as AgenteAuditoriaRouteImport } from './routes/agente.auditoria'
 import { Route as AgenteCarteraRouteImport } from './routes/agente.cartera'
+import { Route as AgenteMercadoRouteImport } from './routes/agente.mercado'
+import { Route as AgenteNetworkingRouteImport } from './routes/agente.networking'
 import { Route as AgentePerfilRouteImport } from './routes/agente.perfil'
+import { Route as AgenteSemilleroRouteImport } from './routes/agente.semillero'
+import { Route as AgenteValuacionRouteImport } from './routes/agente.valuacion'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,9 +35,24 @@ const AgenteIndexRoute = AgenteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AgenteRoute,
 } as any)
+const AgenteAuditoriaRoute = AgenteAuditoriaRouteImport.update({
+  id: '/auditoria',
+  path: '/auditoria',
+  getParentRoute: () => AgenteRoute,
+} as any)
 const AgenteCarteraRoute = AgenteCarteraRouteImport.update({
   id: '/cartera',
   path: '/cartera',
+  getParentRoute: () => AgenteRoute,
+} as any)
+const AgenteMercadoRoute = AgenteMercadoRouteImport.update({
+  id: '/mercado',
+  path: '/mercado',
+  getParentRoute: () => AgenteRoute,
+} as any)
+const AgenteNetworkingRoute = AgenteNetworkingRouteImport.update({
+  id: '/networking',
+  path: '/networking',
   getParentRoute: () => AgenteRoute,
 } as any)
 const AgentePerfilRoute = AgentePerfilRouteImport.update({
@@ -40,39 +60,88 @@ const AgentePerfilRoute = AgentePerfilRouteImport.update({
   path: '/perfil',
   getParentRoute: () => AgenteRoute,
 } as any)
+const AgenteSemilleroRoute = AgenteSemilleroRouteImport.update({
+  id: '/semillero',
+  path: '/semillero',
+  getParentRoute: () => AgenteRoute,
+} as any)
+const AgenteValuacionRoute = AgenteValuacionRouteImport.update({
+  id: '/valuacion',
+  path: '/valuacion',
+  getParentRoute: () => AgenteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
+  '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
+  '/agente/mercado': typeof AgenteMercadoRoute
+  '/agente/networking': typeof AgenteNetworkingRoute
   '/agente/perfil': typeof AgentePerfilRoute
+  '/agente/semillero': typeof AgenteSemilleroRoute
+  '/agente/valuacion': typeof AgenteValuacionRoute
   '/agente/': typeof AgenteIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
+  '/agente/mercado': typeof AgenteMercadoRoute
+  '/agente/networking': typeof AgenteNetworkingRoute
   '/agente/perfil': typeof AgentePerfilRoute
+  '/agente/semillero': typeof AgenteSemilleroRoute
+  '/agente/valuacion': typeof AgenteValuacionRoute
   '/agente': typeof AgenteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
+  '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
+  '/agente/mercado': typeof AgenteMercadoRoute
+  '/agente/networking': typeof AgenteNetworkingRoute
   '/agente/perfil': typeof AgentePerfilRoute
+  '/agente/semillero': typeof AgenteSemilleroRoute
+  '/agente/valuacion': typeof AgenteValuacionRoute
   '/agente/': typeof AgenteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agente' | '/agente/cartera' | '/agente/perfil' | '/agente/'
+  fullPaths:
+    | '/'
+    | '/agente'
+    | '/agente/auditoria'
+    | '/agente/cartera'
+    | '/agente/mercado'
+    | '/agente/networking'
+    | '/agente/perfil'
+    | '/agente/semillero'
+    | '/agente/valuacion'
+    | '/agente/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agente/cartera' | '/agente/perfil' | '/agente'
+  to:
+    | '/'
+    | '/agente/auditoria'
+    | '/agente/cartera'
+    | '/agente/mercado'
+    | '/agente/networking'
+    | '/agente/perfil'
+    | '/agente/semillero'
+    | '/agente/valuacion'
+    | '/agente'
   id:
     | '__root__'
     | '/'
     | '/agente'
+    | '/agente/auditoria'
     | '/agente/cartera'
+    | '/agente/mercado'
+    | '/agente/networking'
     | '/agente/perfil'
+    | '/agente/semillero'
+    | '/agente/valuacion'
     | '/agente/'
   fileRoutesById: FileRoutesById
 }
@@ -104,11 +173,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgenteIndexRouteImport
       parentRoute: typeof AgenteRoute
     }
+    '/agente/auditoria': {
+      id: '/agente/auditoria'
+      path: '/auditoria'
+      fullPath: '/agente/auditoria'
+      preLoaderRoute: typeof AgenteAuditoriaRouteImport
+      parentRoute: typeof AgenteRoute
+    }
     '/agente/cartera': {
       id: '/agente/cartera'
       path: '/cartera'
       fullPath: '/agente/cartera'
       preLoaderRoute: typeof AgenteCarteraRouteImport
+      parentRoute: typeof AgenteRoute
+    }
+    '/agente/mercado': {
+      id: '/agente/mercado'
+      path: '/mercado'
+      fullPath: '/agente/mercado'
+      preLoaderRoute: typeof AgenteMercadoRouteImport
+      parentRoute: typeof AgenteRoute
+    }
+    '/agente/networking': {
+      id: '/agente/networking'
+      path: '/networking'
+      fullPath: '/agente/networking'
+      preLoaderRoute: typeof AgenteNetworkingRouteImport
       parentRoute: typeof AgenteRoute
     }
     '/agente/perfil': {
@@ -118,18 +208,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgentePerfilRouteImport
       parentRoute: typeof AgenteRoute
     }
+    '/agente/semillero': {
+      id: '/agente/semillero'
+      path: '/semillero'
+      fullPath: '/agente/semillero'
+      preLoaderRoute: typeof AgenteSemilleroRouteImport
+      parentRoute: typeof AgenteRoute
+    }
+    '/agente/valuacion': {
+      id: '/agente/valuacion'
+      path: '/valuacion'
+      fullPath: '/agente/valuacion'
+      preLoaderRoute: typeof AgenteValuacionRouteImport
+      parentRoute: typeof AgenteRoute
+    }
   }
 }
 
 interface AgenteRouteChildren {
+  AgenteAuditoriaRoute: typeof AgenteAuditoriaRoute
   AgenteCarteraRoute: typeof AgenteCarteraRoute
+  AgenteMercadoRoute: typeof AgenteMercadoRoute
+  AgenteNetworkingRoute: typeof AgenteNetworkingRoute
   AgentePerfilRoute: typeof AgentePerfilRoute
+  AgenteSemilleroRoute: typeof AgenteSemilleroRoute
+  AgenteValuacionRoute: typeof AgenteValuacionRoute
   AgenteIndexRoute: typeof AgenteIndexRoute
 }
 
 const AgenteRouteChildren: AgenteRouteChildren = {
+  AgenteAuditoriaRoute: AgenteAuditoriaRoute,
   AgenteCarteraRoute: AgenteCarteraRoute,
+  AgenteMercadoRoute: AgenteMercadoRoute,
+  AgenteNetworkingRoute: AgenteNetworkingRoute,
   AgentePerfilRoute: AgentePerfilRoute,
+  AgenteSemilleroRoute: AgenteSemilleroRoute,
+  AgenteValuacionRoute: AgenteValuacionRoute,
   AgenteIndexRoute: AgenteIndexRoute,
 }
 
