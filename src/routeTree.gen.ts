@@ -34,6 +34,10 @@ import { Route as JugadorHistorialRouteImport } from './routes/jugador.historial
 import { Route as JugadorMensajesRouteImport } from './routes/jugador.mensajes'
 import { Route as JugadorValuacionRouteImport } from './routes/jugador.valuacion'
 import { Route as JugadorVidrieraRouteImport } from './routes/jugador.vidriera'
+import { Route as UaifaIndexRouteImport } from './routes/uaifa.index'
+import { Route as UaifaAuditoriaRouteImport } from './routes/uaifa.auditoria'
+import { Route as UaifaReportesRouteImport } from './routes/uaifa.reportes'
+import { Route as UaifaVerificacionRouteImport } from './routes/uaifa.verificacion'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -160,13 +164,33 @@ const JugadorVidrieraRoute = JugadorVidrieraRouteImport.update({
   path: '/vidriera',
   getParentRoute: () => JugadorRoute,
 } as any)
+const UaifaIndexRoute = UaifaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => UaifaRoute,
+} as any)
+const UaifaAuditoriaRoute = UaifaAuditoriaRouteImport.update({
+  id: '/auditoria',
+  path: '/auditoria',
+  getParentRoute: () => UaifaRoute,
+} as any)
+const UaifaReportesRoute = UaifaReportesRouteImport.update({
+  id: '/reportes',
+  path: '/reportes',
+  getParentRoute: () => UaifaRoute,
+} as any)
+const UaifaVerificacionRoute = UaifaVerificacionRouteImport.update({
+  id: '/verificacion',
+  path: '/verificacion',
+  getParentRoute: () => UaifaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
   '/club': typeof ClubRouteWithChildren
   '/jugador': typeof JugadorRouteWithChildren
-  '/uaifa': typeof UaifaRoute
+  '/uaifa': typeof UaifaRouteWithChildren
   '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
   '/agente/mercado': typeof AgenteMercadoRoute
@@ -184,13 +208,16 @@ export interface FileRoutesByFullPath {
   '/jugador/mensajes': typeof JugadorMensajesRoute
   '/jugador/valuacion': typeof JugadorValuacionRoute
   '/jugador/vidriera': typeof JugadorVidrieraRoute
+  '/uaifa/auditoria': typeof UaifaAuditoriaRoute
+  '/uaifa/reportes': typeof UaifaReportesRoute
+  '/uaifa/verificacion': typeof UaifaVerificacionRoute
   '/agente/': typeof AgenteIndexRoute
   '/club/': typeof ClubIndexRoute
   '/jugador/': typeof JugadorIndexRoute
+  '/uaifa/': typeof UaifaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/uaifa': typeof UaifaRoute
   '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
   '/agente/mercado': typeof AgenteMercadoRoute
@@ -208,9 +235,13 @@ export interface FileRoutesByTo {
   '/jugador/mensajes': typeof JugadorMensajesRoute
   '/jugador/valuacion': typeof JugadorValuacionRoute
   '/jugador/vidriera': typeof JugadorVidrieraRoute
+  '/uaifa/auditoria': typeof UaifaAuditoriaRoute
+  '/uaifa/reportes': typeof UaifaReportesRoute
+  '/uaifa/verificacion': typeof UaifaVerificacionRoute
   '/agente': typeof AgenteIndexRoute
   '/club': typeof ClubIndexRoute
   '/jugador': typeof JugadorIndexRoute
+  '/uaifa': typeof UaifaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -218,7 +249,7 @@ export interface FileRoutesById {
   '/agente': typeof AgenteRouteWithChildren
   '/club': typeof ClubRouteWithChildren
   '/jugador': typeof JugadorRouteWithChildren
-  '/uaifa': typeof UaifaRoute
+  '/uaifa': typeof UaifaRouteWithChildren
   '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
   '/agente/mercado': typeof AgenteMercadoRoute
@@ -236,9 +267,13 @@ export interface FileRoutesById {
   '/jugador/mensajes': typeof JugadorMensajesRoute
   '/jugador/valuacion': typeof JugadorValuacionRoute
   '/jugador/vidriera': typeof JugadorVidrieraRoute
+  '/uaifa/auditoria': typeof UaifaAuditoriaRoute
+  '/uaifa/reportes': typeof UaifaReportesRoute
+  '/uaifa/verificacion': typeof UaifaVerificacionRoute
   '/agente/': typeof AgenteIndexRoute
   '/club/': typeof ClubIndexRoute
   '/jugador/': typeof JugadorIndexRoute
+  '/uaifa/': typeof UaifaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -265,13 +300,16 @@ export interface FileRouteTypes {
     | '/jugador/mensajes'
     | '/jugador/valuacion'
     | '/jugador/vidriera'
+    | '/uaifa/auditoria'
+    | '/uaifa/reportes'
+    | '/uaifa/verificacion'
     | '/agente/'
     | '/club/'
     | '/jugador/'
+    | '/uaifa/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/uaifa'
     | '/agente/auditoria'
     | '/agente/cartera'
     | '/agente/mercado'
@@ -289,9 +327,13 @@ export interface FileRouteTypes {
     | '/jugador/mensajes'
     | '/jugador/valuacion'
     | '/jugador/vidriera'
+    | '/uaifa/auditoria'
+    | '/uaifa/reportes'
+    | '/uaifa/verificacion'
     | '/agente'
     | '/club'
     | '/jugador'
+    | '/uaifa'
   id:
     | '__root__'
     | '/'
@@ -316,9 +358,13 @@ export interface FileRouteTypes {
     | '/jugador/mensajes'
     | '/jugador/valuacion'
     | '/jugador/vidriera'
+    | '/uaifa/auditoria'
+    | '/uaifa/reportes'
+    | '/uaifa/verificacion'
     | '/agente/'
     | '/club/'
     | '/jugador/'
+    | '/uaifa/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -326,7 +372,7 @@ export interface RootRouteChildren {
   AgenteRoute: typeof AgenteRouteWithChildren
   ClubRoute: typeof ClubRouteWithChildren
   JugadorRoute: typeof JugadorRouteWithChildren
-  UaifaRoute: typeof UaifaRoute
+  UaifaRoute: typeof UaifaRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -506,6 +552,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JugadorVidrieraRouteImport
       parentRoute: typeof JugadorRoute
     }
+    '/uaifa/': {
+      id: '/uaifa/'
+      path: '/'
+      fullPath: '/uaifa/'
+      preLoaderRoute: typeof UaifaIndexRouteImport
+      parentRoute: typeof UaifaRoute
+    }
+    '/uaifa/auditoria': {
+      id: '/uaifa/auditoria'
+      path: '/auditoria'
+      fullPath: '/uaifa/auditoria'
+      preLoaderRoute: typeof UaifaAuditoriaRouteImport
+      parentRoute: typeof UaifaRoute
+    }
+    '/uaifa/reportes': {
+      id: '/uaifa/reportes'
+      path: '/reportes'
+      fullPath: '/uaifa/reportes'
+      preLoaderRoute: typeof UaifaReportesRouteImport
+      parentRoute: typeof UaifaRoute
+    }
+    '/uaifa/verificacion': {
+      id: '/uaifa/verificacion'
+      path: '/verificacion'
+      fullPath: '/uaifa/verificacion'
+      preLoaderRoute: typeof UaifaVerificacionRouteImport
+      parentRoute: typeof UaifaRoute
+    }
   }
 }
 
@@ -575,12 +649,28 @@ const JugadorRouteChildren: JugadorRouteChildren = {
 const JugadorRouteWithChildren =
   JugadorRoute._addFileChildren(JugadorRouteChildren)
 
+interface UaifaRouteChildren {
+  UaifaAuditoriaRoute: typeof UaifaAuditoriaRoute
+  UaifaReportesRoute: typeof UaifaReportesRoute
+  UaifaVerificacionRoute: typeof UaifaVerificacionRoute
+  UaifaIndexRoute: typeof UaifaIndexRoute
+}
+
+const UaifaRouteChildren: UaifaRouteChildren = {
+  UaifaAuditoriaRoute: UaifaAuditoriaRoute,
+  UaifaReportesRoute: UaifaReportesRoute,
+  UaifaVerificacionRoute: UaifaVerificacionRoute,
+  UaifaIndexRoute: UaifaIndexRoute,
+}
+
+const UaifaRouteWithChildren = UaifaRoute._addFileChildren(UaifaRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgenteRoute: AgenteRouteWithChildren,
   ClubRoute: ClubRouteWithChildren,
   JugadorRoute: JugadorRouteWithChildren,
-  UaifaRoute: UaifaRoute,
+  UaifaRoute: UaifaRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
