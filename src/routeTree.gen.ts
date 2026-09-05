@@ -10,33 +10,75 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgenteRouteImport } from './routes/agente'
+import { Route as AgenteIndexRouteImport } from './routes/agente.index'
+import { Route as AgenteCarteraRouteImport } from './routes/agente.cartera'
+import { Route as AgentePerfilRouteImport } from './routes/agente.perfil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgenteRoute = AgenteRouteImport.update({
+  id: '/agente',
+  path: '/agente',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgenteIndexRoute = AgenteIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AgenteRoute,
+} as any)
+const AgenteCarteraRoute = AgenteCarteraRouteImport.update({
+  id: '/cartera',
+  path: '/cartera',
+  getParentRoute: () => AgenteRoute,
+} as any)
+const AgentePerfilRoute = AgentePerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AgenteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agente': typeof AgenteRouteWithChildren
+  '/agente/cartera': typeof AgenteCarteraRoute
+  '/agente/perfil': typeof AgentePerfilRoute
+  '/agente/': typeof AgenteIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agente/cartera': typeof AgenteCarteraRoute
+  '/agente/perfil': typeof AgentePerfilRoute
+  '/agente': typeof AgenteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agente': typeof AgenteRouteWithChildren
+  '/agente/cartera': typeof AgenteCarteraRoute
+  '/agente/perfil': typeof AgentePerfilRoute
+  '/agente/': typeof AgenteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/agente' | '/agente/cartera' | '/agente/perfil' | '/agente/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/agente/cartera' | '/agente/perfil' | '/agente'
+  id:
+    | '__root__'
+    | '/'
+    | '/agente'
+    | '/agente/cartera'
+    | '/agente/perfil'
+    | '/agente/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgenteRoute: typeof AgenteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +90,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agente': {
+      id: '/agente'
+      path: '/agente'
+      fullPath: '/agente'
+      preLoaderRoute: typeof AgenteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agente/': {
+      id: '/agente/'
+      path: '/'
+      fullPath: '/agente/'
+      preLoaderRoute: typeof AgenteIndexRouteImport
+      parentRoute: typeof AgenteRoute
+    }
+    '/agente/cartera': {
+      id: '/agente/cartera'
+      path: '/cartera'
+      fullPath: '/agente/cartera'
+      preLoaderRoute: typeof AgenteCarteraRouteImport
+      parentRoute: typeof AgenteRoute
+    }
+    '/agente/perfil': {
+      id: '/agente/perfil'
+      path: '/perfil'
+      fullPath: '/agente/perfil'
+      preLoaderRoute: typeof AgentePerfilRouteImport
+      parentRoute: typeof AgenteRoute
+    }
   }
 }
 
+interface AgenteRouteChildren {
+  AgenteCarteraRoute: typeof AgenteCarteraRoute
+  AgentePerfilRoute: typeof AgentePerfilRoute
+  AgenteIndexRoute: typeof AgenteIndexRoute
+}
+
+const AgenteRouteChildren: AgenteRouteChildren = {
+  AgenteCarteraRoute: AgenteCarteraRoute,
+  AgentePerfilRoute: AgentePerfilRoute,
+  AgenteIndexRoute: AgenteIndexRoute,
+}
+
+const AgenteRouteWithChildren =
+  AgenteRoute._addFileChildren(AgenteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgenteRoute: AgenteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
