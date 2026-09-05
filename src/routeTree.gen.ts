@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgenteRouteImport } from './routes/agente'
 import { Route as ClubRouteImport } from './routes/club'
+import { Route as JugadorRouteImport } from './routes/jugador'
 import { Route as AgenteIndexRouteImport } from './routes/agente.index'
 import { Route as AgenteAuditoriaRouteImport } from './routes/agente.auditoria'
 import { Route as AgenteCarteraRouteImport } from './routes/agente.cartera'
@@ -22,8 +23,12 @@ import { Route as AgenteSemilleroRouteImport } from './routes/agente.semillero'
 import { Route as AgenteValuacionRouteImport } from './routes/agente.valuacion'
 import { Route as ClubIndexRouteImport } from './routes/club.index'
 import { Route as ClubAgentesRouteImport } from './routes/club.agentes'
+import { Route as ClubDuediligenceRouteImport } from './routes/club.duediligence'
 import { Route as ClubMercadoRouteImport } from './routes/club.mercado'
 import { Route as ClubSemilleroRouteImport } from './routes/club.semillero'
+import { Route as ClubVerificacionRouteImport } from './routes/club.verificacion'
+import { Route as ClubVidrieraRouteImport } from './routes/club.vidriera'
+import { Route as JugadorIndexRouteImport } from './routes/jugador.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -38,6 +43,11 @@ const AgenteRoute = AgenteRouteImport.update({
 const ClubRoute = ClubRouteImport.update({
   id: '/club',
   path: '/club',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JugadorRoute = JugadorRouteImport.update({
+  id: '/jugador',
+  path: '/jugador',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgenteIndexRoute = AgenteIndexRouteImport.update({
@@ -90,6 +100,11 @@ const ClubAgentesRoute = ClubAgentesRouteImport.update({
   path: '/agentes',
   getParentRoute: () => ClubRoute,
 } as any)
+const ClubDuediligenceRoute = ClubDuediligenceRouteImport.update({
+  id: '/duediligence',
+  path: '/duediligence',
+  getParentRoute: () => ClubRoute,
+} as any)
 const ClubMercadoRoute = ClubMercadoRouteImport.update({
   id: '/mercado',
   path: '/mercado',
@@ -100,11 +115,27 @@ const ClubSemilleroRoute = ClubSemilleroRouteImport.update({
   path: '/semillero',
   getParentRoute: () => ClubRoute,
 } as any)
+const ClubVerificacionRoute = ClubVerificacionRouteImport.update({
+  id: '/verificacion',
+  path: '/verificacion',
+  getParentRoute: () => ClubRoute,
+} as any)
+const ClubVidrieraRoute = ClubVidrieraRouteImport.update({
+  id: '/vidriera',
+  path: '/vidriera',
+  getParentRoute: () => ClubRoute,
+} as any)
+const JugadorIndexRoute = JugadorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => JugadorRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
   '/club': typeof ClubRouteWithChildren
+  '/jugador': typeof JugadorRouteWithChildren
   '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
   '/agente/mercado': typeof AgenteMercadoRoute
@@ -113,10 +144,14 @@ export interface FileRoutesByFullPath {
   '/agente/semillero': typeof AgenteSemilleroRoute
   '/agente/valuacion': typeof AgenteValuacionRoute
   '/club/agentes': typeof ClubAgentesRoute
+  '/club/duediligence': typeof ClubDuediligenceRoute
   '/club/mercado': typeof ClubMercadoRoute
   '/club/semillero': typeof ClubSemilleroRoute
+  '/club/verificacion': typeof ClubVerificacionRoute
+  '/club/vidriera': typeof ClubVidrieraRoute
   '/agente/': typeof AgenteIndexRoute
   '/club/': typeof ClubIndexRoute
+  '/jugador/': typeof JugadorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -128,16 +163,21 @@ export interface FileRoutesByTo {
   '/agente/semillero': typeof AgenteSemilleroRoute
   '/agente/valuacion': typeof AgenteValuacionRoute
   '/club/agentes': typeof ClubAgentesRoute
+  '/club/duediligence': typeof ClubDuediligenceRoute
   '/club/mercado': typeof ClubMercadoRoute
   '/club/semillero': typeof ClubSemilleroRoute
+  '/club/verificacion': typeof ClubVerificacionRoute
+  '/club/vidriera': typeof ClubVidrieraRoute
   '/agente': typeof AgenteIndexRoute
   '/club': typeof ClubIndexRoute
+  '/jugador': typeof JugadorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
   '/club': typeof ClubRouteWithChildren
+  '/jugador': typeof JugadorRouteWithChildren
   '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
   '/agente/mercado': typeof AgenteMercadoRoute
@@ -146,10 +186,14 @@ export interface FileRoutesById {
   '/agente/semillero': typeof AgenteSemilleroRoute
   '/agente/valuacion': typeof AgenteValuacionRoute
   '/club/agentes': typeof ClubAgentesRoute
+  '/club/duediligence': typeof ClubDuediligenceRoute
   '/club/mercado': typeof ClubMercadoRoute
   '/club/semillero': typeof ClubSemilleroRoute
+  '/club/verificacion': typeof ClubVerificacionRoute
+  '/club/vidriera': typeof ClubVidrieraRoute
   '/agente/': typeof AgenteIndexRoute
   '/club/': typeof ClubIndexRoute
+  '/jugador/': typeof JugadorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -157,6 +201,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agente'
     | '/club'
+    | '/jugador'
     | '/agente/auditoria'
     | '/agente/cartera'
     | '/agente/mercado'
@@ -165,10 +210,14 @@ export interface FileRouteTypes {
     | '/agente/semillero'
     | '/agente/valuacion'
     | '/club/agentes'
+    | '/club/duediligence'
     | '/club/mercado'
     | '/club/semillero'
+    | '/club/verificacion'
+    | '/club/vidriera'
     | '/agente/'
     | '/club/'
+    | '/jugador/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -180,15 +229,20 @@ export interface FileRouteTypes {
     | '/agente/semillero'
     | '/agente/valuacion'
     | '/club/agentes'
+    | '/club/duediligence'
     | '/club/mercado'
     | '/club/semillero'
+    | '/club/verificacion'
+    | '/club/vidriera'
     | '/agente'
     | '/club'
+    | '/jugador'
   id:
     | '__root__'
     | '/'
     | '/agente'
     | '/club'
+    | '/jugador'
     | '/agente/auditoria'
     | '/agente/cartera'
     | '/agente/mercado'
@@ -197,16 +251,21 @@ export interface FileRouteTypes {
     | '/agente/semillero'
     | '/agente/valuacion'
     | '/club/agentes'
+    | '/club/duediligence'
     | '/club/mercado'
     | '/club/semillero'
+    | '/club/verificacion'
+    | '/club/vidriera'
     | '/agente/'
     | '/club/'
+    | '/jugador/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgenteRoute: typeof AgenteRouteWithChildren
   ClubRoute: typeof ClubRouteWithChildren
+  JugadorRoute: typeof JugadorRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -230,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/club'
       fullPath: '/club'
       preLoaderRoute: typeof ClubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jugador': {
+      id: '/jugador'
+      path: '/jugador'
+      fullPath: '/jugador'
+      preLoaderRoute: typeof JugadorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agente/': {
@@ -302,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClubAgentesRouteImport
       parentRoute: typeof ClubRoute
     }
+    '/club/duediligence': {
+      id: '/club/duediligence'
+      path: '/duediligence'
+      fullPath: '/club/duediligence'
+      preLoaderRoute: typeof ClubDuediligenceRouteImport
+      parentRoute: typeof ClubRoute
+    }
     '/club/mercado': {
       id: '/club/mercado'
       path: '/mercado'
@@ -315,6 +388,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/club/semillero'
       preLoaderRoute: typeof ClubSemilleroRouteImport
       parentRoute: typeof ClubRoute
+    }
+    '/club/verificacion': {
+      id: '/club/verificacion'
+      path: '/verificacion'
+      fullPath: '/club/verificacion'
+      preLoaderRoute: typeof ClubVerificacionRouteImport
+      parentRoute: typeof ClubRoute
+    }
+    '/club/vidriera': {
+      id: '/club/vidriera'
+      path: '/vidriera'
+      fullPath: '/club/vidriera'
+      preLoaderRoute: typeof ClubVidrieraRouteImport
+      parentRoute: typeof ClubRoute
+    }
+    '/jugador/': {
+      id: '/jugador/'
+      path: '/'
+      fullPath: '/jugador/'
+      preLoaderRoute: typeof JugadorIndexRouteImport
+      parentRoute: typeof JugadorRoute
     }
   }
 }
@@ -346,24 +440,42 @@ const AgenteRouteWithChildren =
 
 interface ClubRouteChildren {
   ClubAgentesRoute: typeof ClubAgentesRoute
+  ClubDuediligenceRoute: typeof ClubDuediligenceRoute
   ClubMercadoRoute: typeof ClubMercadoRoute
   ClubSemilleroRoute: typeof ClubSemilleroRoute
+  ClubVerificacionRoute: typeof ClubVerificacionRoute
+  ClubVidrieraRoute: typeof ClubVidrieraRoute
   ClubIndexRoute: typeof ClubIndexRoute
 }
 
 const ClubRouteChildren: ClubRouteChildren = {
   ClubAgentesRoute: ClubAgentesRoute,
+  ClubDuediligenceRoute: ClubDuediligenceRoute,
   ClubMercadoRoute: ClubMercadoRoute,
   ClubSemilleroRoute: ClubSemilleroRoute,
+  ClubVerificacionRoute: ClubVerificacionRoute,
+  ClubVidrieraRoute: ClubVidrieraRoute,
   ClubIndexRoute: ClubIndexRoute,
 }
 
 const ClubRouteWithChildren = ClubRoute._addFileChildren(ClubRouteChildren)
 
+interface JugadorRouteChildren {
+  JugadorIndexRoute: typeof JugadorIndexRoute
+}
+
+const JugadorRouteChildren: JugadorRouteChildren = {
+  JugadorIndexRoute: JugadorIndexRoute,
+}
+
+const JugadorRouteWithChildren =
+  JugadorRoute._addFileChildren(JugadorRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgenteRoute: AgenteRouteWithChildren,
   ClubRoute: ClubRouteWithChildren,
+  JugadorRoute: JugadorRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
