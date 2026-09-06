@@ -1,6 +1,6 @@
 import { PageHeader, Panel, Stat, Tag } from "@/components/shell";
 import { FichaJugador, TablaPlantel, LinkClub } from "@/components/ficha";
-import { getClub, getJugador, plantelDe, valorPlantel } from "@/lib/futbol-data";
+import { clubes, getClub, getJugador, plantelDe, valorPlantel } from "@/lib/futbol-data";
 
 export function PaginaJugador({ id, base }: { id: string; base: string }) {
   const j = getJugador(id);
@@ -53,7 +53,7 @@ export function PaginaClub({ clubId, base }: { clubId: string; base: string }) {
       <div className="mt-4">
         <Panel title="Clubes relacionados" subtitle="Navegación entre planteles del registro">
           <div className="flex flex-wrap gap-2">
-            {Object.values(getClubes())
+            {Object.values(clubes)
               .filter((x) => x.id !== clubId)
               .map((x) => (
                 <LinkClub
@@ -71,9 +71,3 @@ export function PaginaClub({ clubId, base }: { clubId: string; base: string }) {
     </>
   );
 }
-
-function getClubes() {
-  return clubesTodos;
-}
-
-import { clubes as clubesTodos } from "@/lib/futbol-data";
