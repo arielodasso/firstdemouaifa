@@ -17,6 +17,7 @@ const nav: NavItem[] = [
   { to: "/club/mercado", label: "Mercado de pases", icon: KanbanSquare },
   { to: "/club/duediligence", label: "Due diligence", icon: Scale },
   { to: "/club/vidriera", label: "Vidriera del jugador", icon: IdCard },
+  { to: "/club/equipo/c-aguilas", label: "Mi plantel", icon: Users },
   { to: "/club/verificacion", label: "Sello UAIFA Verified", icon: ShieldCheck },
 ];
 
