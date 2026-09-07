@@ -7,6 +7,7 @@ import {
   Scale,
   IdCard,
   ShieldCheck,
+  Users,
 } from "lucide-react";
 import { RoleShell, type NavItem } from "@/components/shell";
 
