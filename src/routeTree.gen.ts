@@ -38,6 +38,12 @@ import { Route as UaifaIndexRouteImport } from './routes/uaifa.index'
 import { Route as UaifaAuditoriaRouteImport } from './routes/uaifa.auditoria'
 import { Route as UaifaReportesRouteImport } from './routes/uaifa.reportes'
 import { Route as UaifaVerificacionRouteImport } from './routes/uaifa.verificacion'
+import { Route as AgenteEquipoClubIdRouteImport } from './routes/agente.equipo.$clubId'
+import { Route as AgenteFichaIdRouteImport } from './routes/agente.ficha.$id'
+import { Route as ClubEquipoClubIdRouteImport } from './routes/club.equipo.$clubId'
+import { Route as ClubFichaIdRouteImport } from './routes/club.ficha.$id'
+import { Route as JugadorEquipoClubIdRouteImport } from './routes/jugador.equipo.$clubId'
+import { Route as JugadorFichaIdRouteImport } from './routes/jugador.ficha.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -184,6 +190,36 @@ const UaifaVerificacionRoute = UaifaVerificacionRouteImport.update({
   path: '/verificacion',
   getParentRoute: () => UaifaRoute,
 } as any)
+const AgenteEquipoClubIdRoute = AgenteEquipoClubIdRouteImport.update({
+  id: '/equipo/$clubId',
+  path: '/equipo/$clubId',
+  getParentRoute: () => AgenteRoute,
+} as any)
+const AgenteFichaIdRoute = AgenteFichaIdRouteImport.update({
+  id: '/ficha/$id',
+  path: '/ficha/$id',
+  getParentRoute: () => AgenteRoute,
+} as any)
+const ClubEquipoClubIdRoute = ClubEquipoClubIdRouteImport.update({
+  id: '/equipo/$clubId',
+  path: '/equipo/$clubId',
+  getParentRoute: () => ClubRoute,
+} as any)
+const ClubFichaIdRoute = ClubFichaIdRouteImport.update({
+  id: '/ficha/$id',
+  path: '/ficha/$id',
+  getParentRoute: () => ClubRoute,
+} as any)
+const JugadorEquipoClubIdRoute = JugadorEquipoClubIdRouteImport.update({
+  id: '/equipo/$clubId',
+  path: '/equipo/$clubId',
+  getParentRoute: () => JugadorRoute,
+} as any)
+const JugadorFichaIdRoute = JugadorFichaIdRouteImport.update({
+  id: '/ficha/$id',
+  path: '/ficha/$id',
+  getParentRoute: () => JugadorRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -215,6 +251,12 @@ export interface FileRoutesByFullPath {
   '/club/': typeof ClubIndexRoute
   '/jugador/': typeof JugadorIndexRoute
   '/uaifa/': typeof UaifaIndexRoute
+  '/agente/equipo/$clubId': typeof AgenteEquipoClubIdRoute
+  '/agente/ficha/$id': typeof AgenteFichaIdRoute
+  '/club/equipo/$clubId': typeof ClubEquipoClubIdRoute
+  '/club/ficha/$id': typeof ClubFichaIdRoute
+  '/jugador/equipo/$clubId': typeof JugadorEquipoClubIdRoute
+  '/jugador/ficha/$id': typeof JugadorFichaIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -242,6 +284,12 @@ export interface FileRoutesByTo {
   '/club': typeof ClubIndexRoute
   '/jugador': typeof JugadorIndexRoute
   '/uaifa': typeof UaifaIndexRoute
+  '/agente/equipo/$clubId': typeof AgenteEquipoClubIdRoute
+  '/agente/ficha/$id': typeof AgenteFichaIdRoute
+  '/club/equipo/$clubId': typeof ClubEquipoClubIdRoute
+  '/club/ficha/$id': typeof ClubFichaIdRoute
+  '/jugador/equipo/$clubId': typeof JugadorEquipoClubIdRoute
+  '/jugador/ficha/$id': typeof JugadorFichaIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -274,6 +322,12 @@ export interface FileRoutesById {
   '/club/': typeof ClubIndexRoute
   '/jugador/': typeof JugadorIndexRoute
   '/uaifa/': typeof UaifaIndexRoute
+  '/agente/equipo/$clubId': typeof AgenteEquipoClubIdRoute
+  '/agente/ficha/$id': typeof AgenteFichaIdRoute
+  '/club/equipo/$clubId': typeof ClubEquipoClubIdRoute
+  '/club/ficha/$id': typeof ClubFichaIdRoute
+  '/jugador/equipo/$clubId': typeof JugadorEquipoClubIdRoute
+  '/jugador/ficha/$id': typeof JugadorFichaIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -307,6 +361,12 @@ export interface FileRouteTypes {
     | '/club/'
     | '/jugador/'
     | '/uaifa/'
+    | '/agente/equipo/$clubId'
+    | '/agente/ficha/$id'
+    | '/club/equipo/$clubId'
+    | '/club/ficha/$id'
+    | '/jugador/equipo/$clubId'
+    | '/jugador/ficha/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -334,6 +394,12 @@ export interface FileRouteTypes {
     | '/club'
     | '/jugador'
     | '/uaifa'
+    | '/agente/equipo/$clubId'
+    | '/agente/ficha/$id'
+    | '/club/equipo/$clubId'
+    | '/club/ficha/$id'
+    | '/jugador/equipo/$clubId'
+    | '/jugador/ficha/$id'
   id:
     | '__root__'
     | '/'
@@ -365,6 +431,12 @@ export interface FileRouteTypes {
     | '/club/'
     | '/jugador/'
     | '/uaifa/'
+    | '/agente/equipo/$clubId'
+    | '/agente/ficha/$id'
+    | '/club/equipo/$clubId'
+    | '/club/ficha/$id'
+    | '/jugador/equipo/$clubId'
+    | '/jugador/ficha/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -580,6 +652,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UaifaVerificacionRouteImport
       parentRoute: typeof UaifaRoute
     }
+    '/agente/equipo/$clubId': {
+      id: '/agente/equipo/$clubId'
+      path: '/equipo/$clubId'
+      fullPath: '/agente/equipo/$clubId'
+      preLoaderRoute: typeof AgenteEquipoClubIdRouteImport
+      parentRoute: typeof AgenteRoute
+    }
+    '/agente/ficha/$id': {
+      id: '/agente/ficha/$id'
+      path: '/ficha/$id'
+      fullPath: '/agente/ficha/$id'
+      preLoaderRoute: typeof AgenteFichaIdRouteImport
+      parentRoute: typeof AgenteRoute
+    }
+    '/club/equipo/$clubId': {
+      id: '/club/equipo/$clubId'
+      path: '/equipo/$clubId'
+      fullPath: '/club/equipo/$clubId'
+      preLoaderRoute: typeof ClubEquipoClubIdRouteImport
+      parentRoute: typeof ClubRoute
+    }
+    '/club/ficha/$id': {
+      id: '/club/ficha/$id'
+      path: '/ficha/$id'
+      fullPath: '/club/ficha/$id'
+      preLoaderRoute: typeof ClubFichaIdRouteImport
+      parentRoute: typeof ClubRoute
+    }
+    '/jugador/equipo/$clubId': {
+      id: '/jugador/equipo/$clubId'
+      path: '/equipo/$clubId'
+      fullPath: '/jugador/equipo/$clubId'
+      preLoaderRoute: typeof JugadorEquipoClubIdRouteImport
+      parentRoute: typeof JugadorRoute
+    }
+    '/jugador/ficha/$id': {
+      id: '/jugador/ficha/$id'
+      path: '/ficha/$id'
+      fullPath: '/jugador/ficha/$id'
+      preLoaderRoute: typeof JugadorFichaIdRouteImport
+      parentRoute: typeof JugadorRoute
+    }
   }
 }
 
@@ -592,6 +706,8 @@ interface AgenteRouteChildren {
   AgenteSemilleroRoute: typeof AgenteSemilleroRoute
   AgenteValuacionRoute: typeof AgenteValuacionRoute
   AgenteIndexRoute: typeof AgenteIndexRoute
+  AgenteEquipoClubIdRoute: typeof AgenteEquipoClubIdRoute
+  AgenteFichaIdRoute: typeof AgenteFichaIdRoute
 }
 
 const AgenteRouteChildren: AgenteRouteChildren = {
@@ -603,6 +719,8 @@ const AgenteRouteChildren: AgenteRouteChildren = {
   AgenteSemilleroRoute: AgenteSemilleroRoute,
   AgenteValuacionRoute: AgenteValuacionRoute,
   AgenteIndexRoute: AgenteIndexRoute,
+  AgenteEquipoClubIdRoute: AgenteEquipoClubIdRoute,
+  AgenteFichaIdRoute: AgenteFichaIdRoute,
 }
 
 const AgenteRouteWithChildren =
@@ -616,6 +734,8 @@ interface ClubRouteChildren {
   ClubVerificacionRoute: typeof ClubVerificacionRoute
   ClubVidrieraRoute: typeof ClubVidrieraRoute
   ClubIndexRoute: typeof ClubIndexRoute
+  ClubEquipoClubIdRoute: typeof ClubEquipoClubIdRoute
+  ClubFichaIdRoute: typeof ClubFichaIdRoute
 }
 
 const ClubRouteChildren: ClubRouteChildren = {
@@ -626,6 +746,8 @@ const ClubRouteChildren: ClubRouteChildren = {
   ClubVerificacionRoute: ClubVerificacionRoute,
   ClubVidrieraRoute: ClubVidrieraRoute,
   ClubIndexRoute: ClubIndexRoute,
+  ClubEquipoClubIdRoute: ClubEquipoClubIdRoute,
+  ClubFichaIdRoute: ClubFichaIdRoute,
 }
 
 const ClubRouteWithChildren = ClubRoute._addFileChildren(ClubRouteChildren)
@@ -636,6 +758,8 @@ interface JugadorRouteChildren {
   JugadorValuacionRoute: typeof JugadorValuacionRoute
   JugadorVidrieraRoute: typeof JugadorVidrieraRoute
   JugadorIndexRoute: typeof JugadorIndexRoute
+  JugadorEquipoClubIdRoute: typeof JugadorEquipoClubIdRoute
+  JugadorFichaIdRoute: typeof JugadorFichaIdRoute
 }
 
 const JugadorRouteChildren: JugadorRouteChildren = {
@@ -644,6 +768,8 @@ const JugadorRouteChildren: JugadorRouteChildren = {
   JugadorValuacionRoute: JugadorValuacionRoute,
   JugadorVidrieraRoute: JugadorVidrieraRoute,
   JugadorIndexRoute: JugadorIndexRoute,
+  JugadorEquipoClubIdRoute: JugadorEquipoClubIdRoute,
+  JugadorFichaIdRoute: JugadorFichaIdRoute,
 }
 
 const JugadorRouteWithChildren =
