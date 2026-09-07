@@ -67,7 +67,8 @@ function Cartera() {
                 Gestionar valuación
               </Link>
               <Link
-                to="/club/vidriera"
+                to="/agente/ficha/$id"
+                params={{ id: j.id }}
                 className="rounded-sm border border-border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground transition-colors hover:bg-muted"
               >
                 Ver vidriera
