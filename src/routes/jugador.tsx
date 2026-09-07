@@ -6,6 +6,7 @@ import { jugador } from "@/lib/mock-data";
 const nav: NavItem[] = [
   { to: "/jugador", label: "Panel general", icon: LayoutDashboard },
   { to: "/jugador/vidriera", label: "Mi vidriera", icon: IdCard },
+  { to: "/jugador/ficha/j-01", label: "Mi ficha pública", icon: IdCard },
   { to: "/jugador/historial", label: "Mi historial de carrera", icon: History },
   { to: "/jugador/valuacion", label: "Mi valuación", icon: Scale },
   { to: "/jugador/mensajes", label: "Mensajes", icon: MessagesSquare },
