@@ -18,7 +18,7 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
   --font-sans: "Montserrat", system-ui, sans-serif;
-  --font-display: "Oxanium", "Montserrat", sans-serif;
+  --font-display: "Chakra Petch", "Montserrat", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -130,5 +130,209 @@
     height: 2px;
     margin-top: 0.6rem;
     background: var(--gold);
+  }
+}
+
+/* Pantalla de ingreso */
+.login-page {
+  --login-white: oklch(0.985 0.002 285);
+  --login-text-secondary: oklch(0.9 0.02 285);
+  --login-purple-card: oklch(0.37 0.16 287);
+  --login-purple-border: oklch(0.34 0.12 285);
+  --login-gold: oklch(0.76 0.135 84);
+  --login-gold-foreground: oklch(0.25 0.105 285);
+  min-height: 100vh;
+  background: linear-gradient(
+    118deg,
+    oklch(0.19 0.13 287) 0%,
+    oklch(0.265 0.17 289) 48%,
+    oklch(0.36 0.16 291) 100%
+  );
+  color: var(--login-white);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 896px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-circle {
+  width: 96px;
+  height: 96px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: oklch(1 0 0);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+}
+
+.logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.login-title {
+  margin-top: 20px;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.login-subtitle {
+  margin-top: 12px;
+  color: var(--login-gold);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.login-intro {
+  max-width: 576px;
+  margin-top: 20px;
+  color: var(--login-text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.625;
+  letter-spacing: 0;
+}
+
+.demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  color: var(--login-gold-foreground);
+  background: linear-gradient(135deg, oklch(0.82 0.09 90), oklch(0.7 0.13 80), oklch(0.86 0.07 95));
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.demo-badge-dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 9999px;
+  background: var(--login-gold-foreground);
+}
+
+.login-section-label {
+  margin-top: 36px;
+  color: var(--login-text-secondary);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.profile-card {
+  padding: 20px;
+  border: 1px solid var(--login-purple-border);
+  border-radius: 0;
+  background: color-mix(in oklab, var(--login-purple-card) 35%, transparent);
+  color: var(--login-white);
+  transition: color 150ms, background-color 150ms, border-color 150ms;
+}
+
+.profile-card:hover {
+  border-color: color-mix(in oklab, var(--login-gold) 70%, transparent);
+  background: color-mix(in oklab, var(--login-purple-card) 65%, transparent);
+}
+
+.profile-card:focus-visible {
+  outline: 2px solid var(--login-gold);
+  outline-offset: 2px;
+}
+
+.profile-icon {
+  display: flex;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid color-mix(in oklab, var(--login-gold) 40%, transparent);
+  border-radius: 0;
+  color: var(--login-gold);
+  background: color-mix(in oklab, var(--login-gold) 10%, transparent);
+}
+
+.profile-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.profile-title {
+  color: var(--login-white);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.profile-description {
+  margin-top: 8px;
+  color: var(--login-text-secondary);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.625;
+  letter-spacing: 0;
+}
+
+.profile-user {
+  margin-top: 12px;
+  color: color-mix(in oklab, var(--login-text-secondary) 72%, transparent);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.login-disclaimer {
+  margin-top: 36px;
+  color: color-mix(in oklab, var(--login-text-secondary) 58%, transparent);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 1.625;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media (max-width: 639px) {
+  .login-title {
+    font-size: 36px;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
   }
 }
