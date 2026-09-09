@@ -251,6 +251,12 @@ function construir(s: Semilla): JugadorFicha {
     return Math.max(3, Math.min(100, rnd(seed, i + 41, 20, 100) - dist * 14));
   });
 
+  const nombreAgente =
+    s.agente ??
+    ["Martín Solari Estévez", "Lucía Menéndez", "Rodrigo Paiva", "Fernanda Quiroz"][
+      rnd(seed, 29, 0, 3)
+    ]!;
+
   return {
     id: s.id,
     nombre: s.nombre,
