@@ -355,3 +355,21 @@ export function plantelDe(clubId: string) {
 export function valorPlantel(clubId: string) {
   return plantelDe(clubId).reduce((a, j) => a + j.valorM, 0);
 }
+
+export function getAgente(id: string) {
+  return agentes[id];
+}
+
+export const listaAgentes = Object.values(agentes);
+
+export function jugadoresDeAgente(agenteId: string) {
+  return listaJugadores.filter((j) => j.agenteId === agenteId);
+}
+
+export const ligas = Array.from(new Set(Object.values(clubes).map((c) => c.liga))).map((liga) => ({
+  liga,
+  pais: Object.values(clubes).find((c) => c.liga === liga)!.pais,
+  clubes: Object.values(clubes).filter((c) => c.liga === liga),
+}));
+
+export const topValores = [...listaJugadores].sort((a, b) => b.valorM - a.valorM);
