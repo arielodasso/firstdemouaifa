@@ -25,6 +25,7 @@ export type JugadorFicha = {
   confianza: number;
   verificado: boolean;
   agente: string;
+  agenteId: string;
   dorsal: number;
   temporadas: { temporada: string; partidos: number; goles: number; asistencias: number; minutos: number; amarillas: number }[];
   evolucionValor: { fecha: string; valor: number }[];
@@ -143,6 +144,79 @@ function rnd(seed: number, i: number, min: number, max: number) {
   return Math.round(min + (x - Math.floor(x)) * (max - min));
 }
 
+export type AgenteFicha = {
+  id: string;
+  nombre: string;
+  licencia: string;
+  categoria: string;
+  region: string;
+  especializacion: string;
+  verificado: boolean;
+  operaciones: number;
+  cumplimiento: number;
+  desde: number;
+  contacto: string;
+};
+
+export const agentes: Record<string, AgenteFicha> = {
+  "a-solari": {
+    id: "a-solari",
+    nombre: "Martín Solari Estévez",
+    licencia: "FA-AR-2019-00417",
+    categoria: "Categoría A",
+    region: "Conosur",
+    especializacion: "Jóvenes con proyección europea",
+    verificado: true,
+    operaciones: 62,
+    cumplimiento: 97,
+    desde: 2014,
+    contacto: "solari@representacion-uaifa.demo",
+  },
+  "a-menendez": {
+    id: "a-menendez",
+    nombre: "Lucía Menéndez",
+    licencia: "FA-UY-2020-00822",
+    categoria: "Categoría A",
+    region: "Conosur",
+    especializacion: "Mediocampistas y salidas al exterior",
+    verificado: true,
+    operaciones: 41,
+    cumplimiento: 94,
+    desde: 2016,
+    contacto: "menendez@representacion-uaifa.demo",
+  },
+  "a-paiva": {
+    id: "a-paiva",
+    nombre: "Rodrigo Paiva",
+    licencia: "FA-BR-2018-01130",
+    categoria: "Categoría B",
+    region: "Brasil",
+    especializacion: "Formativas y derechos de formación",
+    verificado: true,
+    operaciones: 28,
+    cumplimiento: 89,
+    desde: 2018,
+    contacto: "paiva@representacion-uaifa.demo",
+  },
+  "a-quiroz": {
+    id: "a-quiroz",
+    nombre: "Fernanda Quiroz",
+    licencia: "FA-CL-2021-00276",
+    categoria: "Categoría B",
+    region: "Región Andina",
+    especializacion: "Arqueros y defensores centrales",
+    verificado: false,
+    operaciones: 17,
+    cumplimiento: 91,
+    desde: 2021,
+    contacto: "quiroz@representacion-uaifa.demo",
+  },
+};
+
+const idPorNombre: Record<string, string> = Object.fromEntries(
+  Object.values(agentes).map((a) => [a.nombre, a.id]),
+);
+
 function construir(s: Semilla): JugadorFicha {
   const seed = hash(s.id);
   const ofensivo = s.ofensivo ?? false;
@@ -177,6 +251,12 @@ function construir(s: Semilla): JugadorFicha {
     return Math.max(3, Math.min(100, rnd(seed, i + 41, 20, 100) - dist * 14));
   });
 
+  const nombreAgente =
+    s.agente ??
+    ["Martín Solari Estévez", "Lucía Menéndez", "Rodrigo Paiva", "Fernanda Quiroz"][
+      rnd(seed, 29, 0, 3)
+    ]!;
+
   return {
     id: s.id,
     nombre: s.nombre,
@@ -193,7 +273,8 @@ function construir(s: Semilla): JugadorFicha {
     valuacionMax: Number((s.valorM * 1.24).toFixed(2)),
     confianza: rnd(seed, 19, 52, 92),
     verificado: s.verificado ?? rnd(seed, 23, 0, 10) > 3,
-    agente: s.agente ?? ["Martín Solari Estévez", "Lucía Menéndez", "Rodrigo Paiva", "Fernanda Quiroz"][rnd(seed, 29, 0, 3)]!,
+    agente: nombreAgente,
+    agenteId: idPorNombre[nombreAgente] ?? "a-solari",
     dorsal: s.dorsal,
     temporadas,
     evolucionValor,
@@ -274,3 +355,21 @@ export function plantelDe(clubId: string) {
 export function valorPlantel(clubId: string) {
   return plantelDe(clubId).reduce((a, j) => a + j.valorM, 0);
 }
+
+export function getAgente(id: string) {
+  return agentes[id];
+}
+
+export const listaAgentes = Object.values(agentes);
+
+export function jugadoresDeAgente(agenteId: string) {
+  return listaJugadores.filter((j) => j.agenteId === agenteId);
+}
+
+export const ligas = Array.from(new Set(Object.values(clubes).map((c) => c.liga))).map((liga) => ({
+  liga,
+  pais: Object.values(clubes).find((c) => c.liga === liga)!.pais,
+  clubes: Object.values(clubes).filter((c) => c.liga === liga),
+}));
+
+export const topValores = [...listaJugadores].sort((a, b) => b.valorM - a.valorM);

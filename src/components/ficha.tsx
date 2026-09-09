@@ -18,11 +18,14 @@ import {
 } from "recharts";
 import { Panel, Tag, VerifiedBadge } from "@/components/shell";
 import {
+  getAgente,
   getClub,
+  jugadoresDeAgente,
   plantelDe,
   valorPlantel,
   type JugadorFicha,
 } from "@/lib/futbol-data";
+import { escudoDe, retratoDe } from "@/lib/media";
 
 // Enlace con destino dinámico según el rol de la sesión de demo.
 type AnyLinkProps = {
@@ -49,7 +52,74 @@ export function LinkClub({ base, clubId, children, className = "" }: { base: str
   );
 }
 
+export function LinkAgente({ base, agenteId, children, className = "" }: { base: string; agenteId: string; children: React.ReactNode; className?: string }) {
+  return (
+    <AnyLink to={`${base}/representante/$agenteId`} params={{ agenteId }} className={className}>
+      {children}
+    </AnyLink>
+  );
+}
+
 const enlace = "text-navy underline-offset-2 hover:underline";
+
+export function EscudoClub({ clubId, size = 28 }: { clubId: string; size?: number }) {
+  return (
+    <img
+      src={escudoDe(clubId)}
+      alt=""
+      loading="lazy"
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+      className="shrink-0 object-contain"
+    />
+  );
+}
+
+export function RetratoJugador({ id, size = 40, className = "" }: { id: string; size?: number; className?: string }) {
+  return (
+    <img
+      src={retratoDe(id)}
+      alt=""
+      loading="lazy"
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+      className={`shrink-0 rounded-sm object-cover ${className}`}
+    />
+  );
+}
+
+// Cuadro informativo del representante, con enlace a su cartera completa.
+export function CuadroRepresentante({ jugador: j, base }: { jugador: JugadorFicha; base: string }) {
+  const a = getAgente(j.agenteId);
+  if (!a) return null;
+  const cartera = jugadoresDeAgente(a.id);
+  return (
+    <LinkAgente
+      base={base}
+      agenteId={a.id}
+      className="block rounded-md border border-border bg-card p-4 transition-colors hover:border-navy"
+    >
+      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+        Agente representante
+      </p>
+      <div className="mt-2 flex items-start justify-between gap-3">
+        <div>
+          <p className="text-sm font-semibold text-foreground">{a.nombre}</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            {a.categoria} · {a.licencia} · {a.region}
+          </p>
+        </div>
+        {a.verificado ? <VerifiedBadge label="Agente FIFA verificado" /> : <Tag tone="warn">Verificación pendiente</Tag>}
+      </div>
+      <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-navy">
+        Ver los {cartera.length} jugadores que representa
+        <ArrowUpRight className="h-3.5 w-3.5" />
+      </p>
+    </LinkAgente>
+  );
+}
 
 function Heatmap({ datos }: { datos: number[] }) {
   return (
@@ -97,22 +167,26 @@ export function FichaJugador({ jugador: j, base }: { jugador: JugadorFicha; base
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
           <div>
             <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                  #{j.dorsal} · {j.posicionCorta}
-                </p>
-                <h2 className="mt-1 text-xl text-foreground">{j.nombre}</h2>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {j.posicion} · {j.edad} años · {j.pais}
-                </p>
-                {club ? (
-                  <p className="mt-2 text-sm">
-                    <LinkClub base={base} clubId={club.id} className={enlace}>
-                      {club.nombre}
-                    </LinkClub>
-                    <span className="text-muted-foreground"> · {club.liga}</span>
+              <div className="flex gap-4">
+                <RetratoJugador id={j.id} size={92} className="border border-border" />
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    #{j.dorsal} · {j.posicionCorta}
                   </p>
-                ) : null}
+                  <h2 className="mt-1 text-xl text-foreground">{j.nombre}</h2>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {j.posicion} · {j.edad} años · {j.pais}
+                  </p>
+                  {club ? (
+                    <p className="mt-2 flex items-center gap-2 text-sm">
+                      <EscudoClub clubId={club.id} size={22} />
+                      <LinkClub base={base} clubId={club.id} className={enlace}>
+                        {club.nombre}
+                      </LinkClub>
+                      <span className="text-muted-foreground">· {club.liga}</span>
+                    </p>
+                  ) : null}
+                </div>
               </div>
               {j.verificado ? <VerifiedBadge label="Ficha verificada" /> : <Tag tone="warn">Verificación pendiente</Tag>}
             </div>
@@ -157,6 +231,8 @@ export function FichaJugador({ jugador: j, base }: { jugador: JugadorFicha; base
           </div>
         </div>
       </Panel>
+
+      <CuadroRepresentante jugador={j} base={base} />
 
       {/* Gráficos */}
       <div className="grid gap-4 lg:grid-cols-3">
@@ -303,10 +379,13 @@ export function TablaPlantel({ clubId, base }: { clubId: string; base: string })
             <tr key={j.id} className="hover:bg-muted/60">
               <td className="py-2.5 pr-3 text-muted-foreground">{j.dorsal}</td>
               <td className="py-2.5 pr-3">
-                <LinkJugador base={base} id={j.id} className={`font-medium ${enlace}`}>
-                  {j.nombre}
-                </LinkJugador>
-                {j.verificado ? <span className="ml-2 text-[10px] uppercase tracking-[0.1em] text-gold">Verificado</span> : null}
+                <span className="flex items-center gap-2.5">
+                  <RetratoJugador id={j.id} size={32} />
+                  <LinkJugador base={base} id={j.id} className={`font-medium ${enlace}`}>
+                    {j.nombre}
+                  </LinkJugador>
+                  {j.verificado ? <span className="text-[10px] uppercase tracking-[0.1em] text-gold">Verificado</span> : null}
+                </span>
               </td>
               <td className="py-2.5 pr-3 text-muted-foreground">{j.posicion}</td>
               <td className="py-2.5 pr-3 text-muted-foreground">{j.edad}</td>
