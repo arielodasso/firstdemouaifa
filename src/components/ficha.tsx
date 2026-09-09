@@ -18,11 +18,14 @@ import {
 } from "recharts";
 import { Panel, Tag, VerifiedBadge } from "@/components/shell";
 import {
+  getAgente,
   getClub,
+  jugadoresDeAgente,
   plantelDe,
   valorPlantel,
   type JugadorFicha,
 } from "@/lib/futbol-data";
+import { escudoDe, retratoDe } from "@/lib/media";
 
 // Enlace con destino dinámico según el rol de la sesión de demo.
 type AnyLinkProps = {
@@ -49,7 +52,74 @@ export function LinkClub({ base, clubId, children, className = "" }: { base: str
   );
 }
 
+export function LinkAgente({ base, agenteId, children, className = "" }: { base: string; agenteId: string; children: React.ReactNode; className?: string }) {
+  return (
+    <AnyLink to={`${base}/representante/$agenteId`} params={{ agenteId }} className={className}>
+      {children}
+    </AnyLink>
+  );
+}
+
 const enlace = "text-navy underline-offset-2 hover:underline";
+
+export function EscudoClub({ clubId, size = 28 }: { clubId: string; size?: number }) {
+  return (
+    <img
+      src={escudoDe(clubId)}
+      alt=""
+      loading="lazy"
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+      className="shrink-0 object-contain"
+    />
+  );
+}
+
+export function RetratoJugador({ id, size = 40, className = "" }: { id: string; size?: number; className?: string }) {
+  return (
+    <img
+      src={retratoDe(id)}
+      alt=""
+      loading="lazy"
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+      className={`shrink-0 rounded-sm object-cover ${className}`}
+    />
+  );
+}
+
+// Cuadro informativo del representante, con enlace a su cartera completa.
+export function CuadroRepresentante({ jugador: j, base }: { jugador: JugadorFicha; base: string }) {
+  const a = getAgente(j.agenteId);
+  if (!a) return null;
+  const cartera = jugadoresDeAgente(a.id);
+  return (
+    <LinkAgente
+      base={base}
+      agenteId={a.id}
+      className="block rounded-md border border-border bg-card p-4 transition-colors hover:border-navy"
+    >
+      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+        Agente representante
+      </p>
+      <div className="mt-2 flex items-start justify-between gap-3">
+        <div>
+          <p className="text-sm font-semibold text-foreground">{a.nombre}</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            {a.categoria} · {a.licencia} · {a.region}
+          </p>
+        </div>
+        {a.verificado ? <VerifiedBadge label="Agente FIFA verificado" /> : <Tag tone="warn">Verificación pendiente</Tag>}
+      </div>
+      <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-navy">
+        Ver los {cartera.length} jugadores que representa
+        <ArrowUpRight className="h-3.5 w-3.5" />
+      </p>
+    </LinkAgente>
+  );
+}
 
 function Heatmap({ datos }: { datos: number[] }) {
   return (
