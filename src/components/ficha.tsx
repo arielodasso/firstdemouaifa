@@ -379,10 +379,13 @@ export function TablaPlantel({ clubId, base }: { clubId: string; base: string })
             <tr key={j.id} className="hover:bg-muted/60">
               <td className="py-2.5 pr-3 text-muted-foreground">{j.dorsal}</td>
               <td className="py-2.5 pr-3">
-                <LinkJugador base={base} id={j.id} className={`font-medium ${enlace}`}>
-                  {j.nombre}
-                </LinkJugador>
-                {j.verificado ? <span className="ml-2 text-[10px] uppercase tracking-[0.1em] text-gold">Verificado</span> : null}
+                <span className="flex items-center gap-2.5">
+                  <RetratoJugador id={j.id} size={32} />
+                  <LinkJugador base={base} id={j.id} className={`font-medium ${enlace}`}>
+                    {j.nombre}
+                  </LinkJugador>
+                  {j.verificado ? <span className="text-[10px] uppercase tracking-[0.1em] text-gold">Verificado</span> : null}
+                </span>
               </td>
               <td className="py-2.5 pr-3 text-muted-foreground">{j.posicion}</td>
               <td className="py-2.5 pr-3 text-muted-foreground">{j.edad}</td>
