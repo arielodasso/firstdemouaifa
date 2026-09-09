@@ -25,6 +25,7 @@ export type JugadorFicha = {
   confianza: number;
   verificado: boolean;
   agente: string;
+  agenteId: string;
   dorsal: number;
   temporadas: { temporada: string; partidos: number; goles: number; asistencias: number; minutos: number; amarillas: number }[];
   evolucionValor: { fecha: string; valor: number }[];
@@ -142,6 +143,79 @@ function rnd(seed: number, i: number, min: number, max: number) {
   const x = Math.abs(Math.sin(seed * 12.9898 + i * 78.233) * 43758.5453);
   return Math.round(min + (x - Math.floor(x)) * (max - min));
 }
+
+export type AgenteFicha = {
+  id: string;
+  nombre: string;
+  licencia: string;
+  categoria: string;
+  region: string;
+  especializacion: string;
+  verificado: boolean;
+  operaciones: number;
+  cumplimiento: number;
+  desde: number;
+  contacto: string;
+};
+
+export const agentes: Record<string, AgenteFicha> = {
+  "a-solari": {
+    id: "a-solari",
+    nombre: "Martín Solari Estévez",
+    licencia: "FA-AR-2019-00417",
+    categoria: "Categoría A",
+    region: "Conosur",
+    especializacion: "Jóvenes con proyección europea",
+    verificado: true,
+    operaciones: 62,
+    cumplimiento: 97,
+    desde: 2014,
+    contacto: "solari@representacion-uaifa.demo",
+  },
+  "a-menendez": {
+    id: "a-menendez",
+    nombre: "Lucía Menéndez",
+    licencia: "FA-UY-2020-00822",
+    categoria: "Categoría A",
+    region: "Conosur",
+    especializacion: "Mediocampistas y salidas al exterior",
+    verificado: true,
+    operaciones: 41,
+    cumplimiento: 94,
+    desde: 2016,
+    contacto: "menendez@representacion-uaifa.demo",
+  },
+  "a-paiva": {
+    id: "a-paiva",
+    nombre: "Rodrigo Paiva",
+    licencia: "FA-BR-2018-01130",
+    categoria: "Categoría B",
+    region: "Brasil",
+    especializacion: "Formativas y derechos de formación",
+    verificado: true,
+    operaciones: 28,
+    cumplimiento: 89,
+    desde: 2018,
+    contacto: "paiva@representacion-uaifa.demo",
+  },
+  "a-quiroz": {
+    id: "a-quiroz",
+    nombre: "Fernanda Quiroz",
+    licencia: "FA-CL-2021-00276",
+    categoria: "Categoría B",
+    region: "Región Andina",
+    especializacion: "Arqueros y defensores centrales",
+    verificado: false,
+    operaciones: 17,
+    cumplimiento: 91,
+    desde: 2021,
+    contacto: "quiroz@representacion-uaifa.demo",
+  },
+};
+
+const idPorNombre: Record<string, string> = Object.fromEntries(
+  Object.values(agentes).map((a) => [a.nombre, a.id]),
+);
 
 function construir(s: Semilla): JugadorFicha {
   const seed = hash(s.id);
