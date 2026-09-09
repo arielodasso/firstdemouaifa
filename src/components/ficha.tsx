@@ -167,22 +167,26 @@ export function FichaJugador({ jugador: j, base }: { jugador: JugadorFicha; base
         <div className="grid gap-5 lg:grid-cols-[1.2fr_1fr]">
           <div>
             <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                  #{j.dorsal} · {j.posicionCorta}
-                </p>
-                <h2 className="mt-1 text-xl text-foreground">{j.nombre}</h2>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {j.posicion} · {j.edad} años · {j.pais}
-                </p>
-                {club ? (
-                  <p className="mt-2 text-sm">
-                    <LinkClub base={base} clubId={club.id} className={enlace}>
-                      {club.nombre}
-                    </LinkClub>
-                    <span className="text-muted-foreground"> · {club.liga}</span>
+              <div className="flex gap-4">
+                <RetratoJugador id={j.id} size={92} className="border border-border" />
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    #{j.dorsal} · {j.posicionCorta}
                   </p>
-                ) : null}
+                  <h2 className="mt-1 text-xl text-foreground">{j.nombre}</h2>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {j.posicion} · {j.edad} años · {j.pais}
+                  </p>
+                  {club ? (
+                    <p className="mt-2 flex items-center gap-2 text-sm">
+                      <EscudoClub clubId={club.id} size={22} />
+                      <LinkClub base={base} clubId={club.id} className={enlace}>
+                        {club.nombre}
+                      </LinkClub>
+                      <span className="text-muted-foreground">· {club.liga}</span>
+                    </p>
+                  ) : null}
+                </div>
               </div>
               {j.verificado ? <VerifiedBadge label="Ficha verificada" /> : <Tag tone="warn">Verificación pendiente</Tag>}
             </div>
