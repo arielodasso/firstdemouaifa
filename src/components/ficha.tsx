@@ -232,6 +232,8 @@ export function FichaJugador({ jugador: j, base }: { jugador: JugadorFicha; base
         </div>
       </Panel>
 
+      <CuadroRepresentante jugador={j} base={base} />
+
       {/* Gráficos */}
       <div className="grid gap-4 lg:grid-cols-3">
         <Panel title="Evolución de valuación" subtitle={`USD ${j.valuacionMin}M — ${j.valuacionMax}M · confianza ${j.confianza}%`} className="lg:col-span-2">
