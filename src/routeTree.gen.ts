@@ -40,10 +40,13 @@ import { Route as UaifaReportesRouteImport } from './routes/uaifa.reportes'
 import { Route as UaifaVerificacionRouteImport } from './routes/uaifa.verificacion'
 import { Route as AgenteEquipoClubIdRouteImport } from './routes/agente.equipo.$clubId'
 import { Route as AgenteFichaIdRouteImport } from './routes/agente.ficha.$id'
+import { Route as AgenteRepresentanteAgenteIdRouteImport } from './routes/agente.representante.$agenteId'
 import { Route as ClubEquipoClubIdRouteImport } from './routes/club.equipo.$clubId'
 import { Route as ClubFichaIdRouteImport } from './routes/club.ficha.$id'
+import { Route as ClubRepresentanteAgenteIdRouteImport } from './routes/club.representante.$agenteId'
 import { Route as JugadorEquipoClubIdRouteImport } from './routes/jugador.equipo.$clubId'
 import { Route as JugadorFichaIdRouteImport } from './routes/jugador.ficha.$id'
+import { Route as JugadorRepresentanteAgenteIdRouteImport } from './routes/jugador.representante.$agenteId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -200,6 +203,12 @@ const AgenteFichaIdRoute = AgenteFichaIdRouteImport.update({
   path: '/ficha/$id',
   getParentRoute: () => AgenteRoute,
 } as any)
+const AgenteRepresentanteAgenteIdRoute =
+  AgenteRepresentanteAgenteIdRouteImport.update({
+    id: '/representante/$agenteId',
+    path: '/representante/$agenteId',
+    getParentRoute: () => AgenteRoute,
+  } as any)
 const ClubEquipoClubIdRoute = ClubEquipoClubIdRouteImport.update({
   id: '/equipo/$clubId',
   path: '/equipo/$clubId',
@@ -210,6 +219,12 @@ const ClubFichaIdRoute = ClubFichaIdRouteImport.update({
   path: '/ficha/$id',
   getParentRoute: () => ClubRoute,
 } as any)
+const ClubRepresentanteAgenteIdRoute =
+  ClubRepresentanteAgenteIdRouteImport.update({
+    id: '/representante/$agenteId',
+    path: '/representante/$agenteId',
+    getParentRoute: () => ClubRoute,
+  } as any)
 const JugadorEquipoClubIdRoute = JugadorEquipoClubIdRouteImport.update({
   id: '/equipo/$clubId',
   path: '/equipo/$clubId',
@@ -220,6 +235,12 @@ const JugadorFichaIdRoute = JugadorFichaIdRouteImport.update({
   path: '/ficha/$id',
   getParentRoute: () => JugadorRoute,
 } as any)
+const JugadorRepresentanteAgenteIdRoute =
+  JugadorRepresentanteAgenteIdRouteImport.update({
+    id: '/representante/$agenteId',
+    path: '/representante/$agenteId',
+    getParentRoute: () => JugadorRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -253,10 +274,13 @@ export interface FileRoutesByFullPath {
   '/uaifa/': typeof UaifaIndexRoute
   '/agente/equipo/$clubId': typeof AgenteEquipoClubIdRoute
   '/agente/ficha/$id': typeof AgenteFichaIdRoute
+  '/agente/representante/$agenteId': typeof AgenteRepresentanteAgenteIdRoute
   '/club/equipo/$clubId': typeof ClubEquipoClubIdRoute
   '/club/ficha/$id': typeof ClubFichaIdRoute
+  '/club/representante/$agenteId': typeof ClubRepresentanteAgenteIdRoute
   '/jugador/equipo/$clubId': typeof JugadorEquipoClubIdRoute
   '/jugador/ficha/$id': typeof JugadorFichaIdRoute
+  '/jugador/representante/$agenteId': typeof JugadorRepresentanteAgenteIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -286,10 +310,13 @@ export interface FileRoutesByTo {
   '/uaifa': typeof UaifaIndexRoute
   '/agente/equipo/$clubId': typeof AgenteEquipoClubIdRoute
   '/agente/ficha/$id': typeof AgenteFichaIdRoute
+  '/agente/representante/$agenteId': typeof AgenteRepresentanteAgenteIdRoute
   '/club/equipo/$clubId': typeof ClubEquipoClubIdRoute
   '/club/ficha/$id': typeof ClubFichaIdRoute
+  '/club/representante/$agenteId': typeof ClubRepresentanteAgenteIdRoute
   '/jugador/equipo/$clubId': typeof JugadorEquipoClubIdRoute
   '/jugador/ficha/$id': typeof JugadorFichaIdRoute
+  '/jugador/representante/$agenteId': typeof JugadorRepresentanteAgenteIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -324,10 +351,13 @@ export interface FileRoutesById {
   '/uaifa/': typeof UaifaIndexRoute
   '/agente/equipo/$clubId': typeof AgenteEquipoClubIdRoute
   '/agente/ficha/$id': typeof AgenteFichaIdRoute
+  '/agente/representante/$agenteId': typeof AgenteRepresentanteAgenteIdRoute
   '/club/equipo/$clubId': typeof ClubEquipoClubIdRoute
   '/club/ficha/$id': typeof ClubFichaIdRoute
+  '/club/representante/$agenteId': typeof ClubRepresentanteAgenteIdRoute
   '/jugador/equipo/$clubId': typeof JugadorEquipoClubIdRoute
   '/jugador/ficha/$id': typeof JugadorFichaIdRoute
+  '/jugador/representante/$agenteId': typeof JugadorRepresentanteAgenteIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -363,10 +393,13 @@ export interface FileRouteTypes {
     | '/uaifa/'
     | '/agente/equipo/$clubId'
     | '/agente/ficha/$id'
+    | '/agente/representante/$agenteId'
     | '/club/equipo/$clubId'
     | '/club/ficha/$id'
+    | '/club/representante/$agenteId'
     | '/jugador/equipo/$clubId'
     | '/jugador/ficha/$id'
+    | '/jugador/representante/$agenteId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -396,10 +429,13 @@ export interface FileRouteTypes {
     | '/uaifa'
     | '/agente/equipo/$clubId'
     | '/agente/ficha/$id'
+    | '/agente/representante/$agenteId'
     | '/club/equipo/$clubId'
     | '/club/ficha/$id'
+    | '/club/representante/$agenteId'
     | '/jugador/equipo/$clubId'
     | '/jugador/ficha/$id'
+    | '/jugador/representante/$agenteId'
   id:
     | '__root__'
     | '/'
@@ -433,10 +469,13 @@ export interface FileRouteTypes {
     | '/uaifa/'
     | '/agente/equipo/$clubId'
     | '/agente/ficha/$id'
+    | '/agente/representante/$agenteId'
     | '/club/equipo/$clubId'
     | '/club/ficha/$id'
+    | '/club/representante/$agenteId'
     | '/jugador/equipo/$clubId'
     | '/jugador/ficha/$id'
+    | '/jugador/representante/$agenteId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -666,6 +705,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgenteFichaIdRouteImport
       parentRoute: typeof AgenteRoute
     }
+    '/agente/representante/$agenteId': {
+      id: '/agente/representante/$agenteId'
+      path: '/representante/$agenteId'
+      fullPath: '/agente/representante/$agenteId'
+      preLoaderRoute: typeof AgenteRepresentanteAgenteIdRouteImport
+      parentRoute: typeof AgenteRoute
+    }
     '/club/equipo/$clubId': {
       id: '/club/equipo/$clubId'
       path: '/equipo/$clubId'
@@ -678,6 +724,13 @@ declare module '@tanstack/react-router' {
       path: '/ficha/$id'
       fullPath: '/club/ficha/$id'
       preLoaderRoute: typeof ClubFichaIdRouteImport
+      parentRoute: typeof ClubRoute
+    }
+    '/club/representante/$agenteId': {
+      id: '/club/representante/$agenteId'
+      path: '/representante/$agenteId'
+      fullPath: '/club/representante/$agenteId'
+      preLoaderRoute: typeof ClubRepresentanteAgenteIdRouteImport
       parentRoute: typeof ClubRoute
     }
     '/jugador/equipo/$clubId': {
@@ -694,6 +747,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JugadorFichaIdRouteImport
       parentRoute: typeof JugadorRoute
     }
+    '/jugador/representante/$agenteId': {
+      id: '/jugador/representante/$agenteId'
+      path: '/representante/$agenteId'
+      fullPath: '/jugador/representante/$agenteId'
+      preLoaderRoute: typeof JugadorRepresentanteAgenteIdRouteImport
+      parentRoute: typeof JugadorRoute
+    }
   }
 }
 
@@ -708,6 +768,7 @@ interface AgenteRouteChildren {
   AgenteIndexRoute: typeof AgenteIndexRoute
   AgenteEquipoClubIdRoute: typeof AgenteEquipoClubIdRoute
   AgenteFichaIdRoute: typeof AgenteFichaIdRoute
+  AgenteRepresentanteAgenteIdRoute: typeof AgenteRepresentanteAgenteIdRoute
 }
 
 const AgenteRouteChildren: AgenteRouteChildren = {
@@ -721,6 +782,7 @@ const AgenteRouteChildren: AgenteRouteChildren = {
   AgenteIndexRoute: AgenteIndexRoute,
   AgenteEquipoClubIdRoute: AgenteEquipoClubIdRoute,
   AgenteFichaIdRoute: AgenteFichaIdRoute,
+  AgenteRepresentanteAgenteIdRoute: AgenteRepresentanteAgenteIdRoute,
 }
 
 const AgenteRouteWithChildren =
@@ -736,6 +798,7 @@ interface ClubRouteChildren {
   ClubIndexRoute: typeof ClubIndexRoute
   ClubEquipoClubIdRoute: typeof ClubEquipoClubIdRoute
   ClubFichaIdRoute: typeof ClubFichaIdRoute
+  ClubRepresentanteAgenteIdRoute: typeof ClubRepresentanteAgenteIdRoute
 }
 
 const ClubRouteChildren: ClubRouteChildren = {
@@ -748,6 +811,7 @@ const ClubRouteChildren: ClubRouteChildren = {
   ClubIndexRoute: ClubIndexRoute,
   ClubEquipoClubIdRoute: ClubEquipoClubIdRoute,
   ClubFichaIdRoute: ClubFichaIdRoute,
+  ClubRepresentanteAgenteIdRoute: ClubRepresentanteAgenteIdRoute,
 }
 
 const ClubRouteWithChildren = ClubRoute._addFileChildren(ClubRouteChildren)
@@ -760,6 +824,7 @@ interface JugadorRouteChildren {
   JugadorIndexRoute: typeof JugadorIndexRoute
   JugadorEquipoClubIdRoute: typeof JugadorEquipoClubIdRoute
   JugadorFichaIdRoute: typeof JugadorFichaIdRoute
+  JugadorRepresentanteAgenteIdRoute: typeof JugadorRepresentanteAgenteIdRoute
 }
 
 const JugadorRouteChildren: JugadorRouteChildren = {
@@ -770,6 +835,7 @@ const JugadorRouteChildren: JugadorRouteChildren = {
   JugadorIndexRoute: JugadorIndexRoute,
   JugadorEquipoClubIdRoute: JugadorEquipoClubIdRoute,
   JugadorFichaIdRoute: JugadorFichaIdRoute,
+  JugadorRepresentanteAgenteIdRoute: JugadorRepresentanteAgenteIdRoute,
 }
 
 const JugadorRouteWithChildren =
