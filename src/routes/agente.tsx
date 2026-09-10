@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { RoleShell, type NavItem } from "@/components/shell";
 import { agente } from "@/lib/mock-data";
+import { retratoAgente } from "@/lib/media";
 
 const nav: NavItem[] = [
   { to: "/agente", label: "Panel general", icon: LayoutDashboard },
@@ -31,6 +32,7 @@ export const Route = createFileRoute("/agente")({
       userName={agente.nombre}
       userMeta={`${agente.numero} · ${agente.jurisdiccion}`}
       nav={nav}
+      avatar={retratoAgente("a-solari")}
     />
   ),
 });
