@@ -1,6 +1,6 @@
-import { PageHeader, Panel, Stat, Tag } from "@/components/shell";
-import { FichaJugador, TablaPlantel, LinkClub } from "@/components/ficha";
-import { clubes, getClub, getJugador, plantelDe, valorPlantel } from "@/lib/futbol-data";
+import { PageHeader, Panel, Stat, Tag, VerifiedBadge } from "@/components/shell";
+import { FichaJugador, TablaPlantel, LinkClub, EscudoClub, RetratoAgente, JugadorInline, ClubInline } from "@/components/ficha";
+import { clubes, getClub, getJugador, getAgente, jugadoresDeAgente, plantelDe, valorPlantel } from "@/lib/futbol-data";
 
 export function PaginaJugador({ id, base }: { id: string; base: string }) {
   const j = getJugador(id);
@@ -62,12 +62,74 @@ export function PaginaClub({ clubId, base }: { clubId: string; base: string }) {
                   clubId={x.id}
                   className="rounded-sm border border-border px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-muted"
                 >
-                  {x.nombre}
+                  <span className="inline-flex items-center gap-2">
+                    <EscudoClub clubId={x.id} size={18} />
+                    {x.nombre}
+                  </span>
                 </LinkClub>
               ))}
           </div>
         </Panel>
       </div>
+    </>
+  );
+}
+
+export function PaginaAgente({ agenteId, base }: { agenteId: string; base: string }) {
+  const a = getAgente(agenteId);
+  if (!a) {
+    return <PageHeader title="Agente no disponible" description="El agente solicitado no figura en el registro ilustrativo." />;
+  }
+  const cartera = jugadoresDeAgente(a.id);
+  const valor = cartera.reduce((s, j) => s + j.valorM, 0);
+
+  return (
+    <>
+      <PageHeader
+        title={a.nombre}
+        description={`${a.categoria} · ${a.licencia} · ${a.region}`}
+        action={a.verificado ? <VerifiedBadge label="Agente FIFA verificado" /> : <Tag tone="warn">Verificación pendiente</Tag>}
+      />
+
+      <Panel className="mb-4">
+        <div className="flex flex-wrap items-center gap-4">
+          <RetratoAgente id={a.id} size={88} />
+          <div className="min-w-0">
+            <p className="text-base font-semibold text-foreground">{a.nombre}</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {a.especializacion} · Registrado desde {a.desde}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">{a.contacto}</p>
+          </div>
+        </div>
+      </Panel>
+
+      <div className="mb-4 grid gap-4 sm:grid-cols-3">
+        <Stat label="Jugadores representados" value={String(cartera.length)} />
+        <Stat label="Valor de la cartera" value={`USD ${valor.toFixed(2)}M`} />
+        <Stat label="Cumplimiento de plazos" value={`${a.cumplimiento}%`} hint={`${a.operaciones} operaciones registradas`} />
+      </div>
+
+      <Panel title="Jugadores que representa" subtitle="Cada jugador y cada club enlaza a su vista de detalle">
+        <ul className="divide-y divide-border">
+          {cartera.map((j) => {
+            const c = getClub(j.clubId);
+            return (
+              <li key={j.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
+                <JugadorInline id={j.id} nombre={j.nombre} base={base} size={40} />
+                <div className="flex items-center gap-4">
+                  {c ? <ClubInline clubId={c.id} nombre={c.nombre} base={base} size={18} /> : null}
+                  <span className="text-xs text-muted-foreground">{j.posicionCorta}</span>
+                  <span className="text-sm font-medium text-foreground">USD {j.valorM.toFixed(2)}M</span>
+                </div>
+              </li>
+            );
+          })}
+          {cartera.length === 0 ? (
+            <li className="py-3 text-sm text-muted-foreground">Sin jugadores asociados en el registro ilustrativo.</li>
+          ) : null}
+        </ul>
+      </Panel>
     </>
   );
 }
