@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LayoutDashboard, BadgeCheck, FileSearch, BarChart3 } from "lucide-react";
 import { RoleShell, type NavItem } from "@/components/shell";
+import logo from "@/assets/uaifa-logo.png.asset.json";
 
 const nav: NavItem[] = [
   { to: "/uaifa", label: "Panel institucional", icon: LayoutDashboard },
@@ -17,6 +18,8 @@ export const Route = createFileRoute("/uaifa")({
       userName="Dirección de Registro y Cumplimiento"
       userMeta="Unión de Agentes Intermediarios de Fútbol de América"
       nav={nav}
+      avatar={logo.url}
+      avatarFit="contain"
     />
   ),
 });

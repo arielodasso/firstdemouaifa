@@ -25,7 +25,7 @@ import {
   valorPlantel,
   type JugadorFicha,
 } from "@/lib/futbol-data";
-import { escudoDe, retratoDe } from "@/lib/media";
+import { escudoDe, retratoDe, retratoAgente } from "@/lib/media";
 
 // Enlace con destino dinámico según el rol de la sesión de demo.
 type AnyLinkProps = {
@@ -85,8 +85,46 @@ export function RetratoJugador({ id, size = 40, className = "" }: { id: string; 
       width={size}
       height={size}
       style={{ width: size, height: size }}
-      className={`shrink-0 rounded-sm object-cover ${className}`}
+      className={`shrink-0 rounded-full border border-border object-cover ${className}`}
     />
+  );
+}
+
+export function RetratoAgente({ id, size = 44, className = "" }: { id: string; size?: number; className?: string }) {
+  return (
+    <img
+      src={retratoAgente(id)}
+      alt=""
+      loading="lazy"
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+      className={`shrink-0 rounded-full border border-border object-cover ${className}`}
+    />
+  );
+}
+
+// Nombre de jugador con foto circular y enlace a su ficha.
+export function JugadorInline({ id, nombre, base, size = 28 }: { id: string; nombre: string; base: string; size?: number }) {
+  return (
+    <span className="inline-flex items-center gap-2">
+      <RetratoJugador id={id} size={size} />
+      <LinkJugador base={base} id={id} className={`font-medium ${enlace}`}>
+        {nombre}
+      </LinkJugador>
+    </span>
+  );
+}
+
+// Nombre de club con escudo y enlace a su plantel.
+export function ClubInline({ clubId, nombre, base, size = 22 }: { clubId: string; nombre: string; base: string; size?: number }) {
+  return (
+    <span className="inline-flex items-center gap-2">
+      <EscudoClub clubId={clubId} size={size} />
+      <LinkClub base={base} clubId={clubId} className={enlace}>
+        {nombre}
+      </LinkClub>
+    </span>
   );
 }
 
@@ -105,11 +143,14 @@ export function CuadroRepresentante({ jugador: j, base }: { jugador: JugadorFich
         Agente representante
       </p>
       <div className="mt-2 flex items-start justify-between gap-3">
-        <div>
+        <div className="flex items-center gap-3">
+          <RetratoAgente id={a.id} size={48} />
+          <div>
           <p className="text-sm font-semibold text-foreground">{a.nombre}</p>
           <p className="mt-0.5 text-xs text-muted-foreground">
             {a.categoria} · {a.licencia} · {a.region}
           </p>
+          </div>
         </div>
         {a.verificado ? <VerifiedBadge label="Agente FIFA verificado" /> : <Tag tone="warn">Verificación pendiente</Tag>}
       </div>
@@ -168,7 +209,7 @@ export function FichaJugador({ jugador: j, base }: { jugador: JugadorFicha; base
           <div>
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="flex gap-4">
-                <RetratoJugador id={j.id} size={92} className="border border-border" />
+                <RetratoJugador id={j.id} size={92} />
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                     #{j.dorsal} · {j.posicionCorta}
@@ -196,7 +237,7 @@ export function FichaJugador({ jugador: j, base }: { jugador: JugadorFicha; base
                 ["Pie hábil", j.pieHabil],
                 ["Altura", j.altura],
                 ["Contrato", j.contratoHasta],
-                ["Representante", j.agente],
+                ["Agente representante", j.agente],
               ].map(([k, v]) => (
                 <div key={k}>
                   <dt className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground">{k}</dt>
@@ -340,9 +381,7 @@ export function FichaJugador({ jugador: j, base }: { jugador: JugadorFicha; base
                   </p>
                   <p className="mt-1 text-sm font-semibold">
                     {c ? (
-                      <LinkClub base={base} clubId={c.id} className={enlace}>
-                        {c.nombre}
-                      </LinkClub>
+                      <ClubInline clubId={c.id} nombre={c.nombre} base={base} size={20} />
                     ) : (
                       <span className="text-foreground">Club no registrado</span>
                     )}

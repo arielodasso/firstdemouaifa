@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LayoutDashboard, IdCard, History, Scale, MessagesSquare } from "lucide-react";
 import { RoleShell, type NavItem } from "@/components/shell";
 import { jugador } from "@/lib/mock-data";
+import { retratoDe } from "@/lib/media";
 
 const nav: NavItem[] = [
   { to: "/jugador", label: "Panel general", icon: LayoutDashboard },
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/jugador")({
       userName={jugador.nombre}
       userMeta={`${jugador.posicion} · ${jugador.club}`}
       nav={nav}
+      avatar={retratoDe("j-01")}
     />
   ),
 });

@@ -10,6 +10,7 @@ import {
   Users,
 } from "lucide-react";
 import { RoleShell, type NavItem } from "@/components/shell";
+import { escudoDe } from "@/lib/media";
 
 const nav: NavItem[] = [
   { to: "/club", label: "Panel general", icon: LayoutDashboard },
@@ -30,6 +31,8 @@ export const Route = createFileRoute("/club")({
       userName="CD Águilas Doradas"
       userMeta="Colombia · Primera División"
       nav={nav}
+      avatar={escudoDe("c-aguilas")}
+      avatarFit="contain"
     />
   ),
 });
