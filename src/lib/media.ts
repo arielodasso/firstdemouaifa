@@ -39,3 +39,22 @@ export function escudoDe(clubId: string) {
 export function retratoDe(jugadorId: string) {
   return retratos[h(jugadorId) % retratos.length]!;
 }
+
+// Retratos ficticios de agentes representantes.
+import a1 from "@/assets/agent-1.jpg";
+import a2 from "@/assets/agent-2.jpg";
+import a3 from "@/assets/agent-3.jpg";
+import a4 from "@/assets/agent-4.jpg";
+
+const retratosAgente: Record<string, string> = {
+  "a-solari": a1,
+  "a-menendez": a2,
+  "a-paiva": a3,
+  "a-quiroz": a4,
+};
+
+const listaRetratosAgente = [a1, a2, a3, a4];
+
+export function retratoAgente(agenteId: string) {
+  return retratosAgente[agenteId] ?? listaRetratosAgente[h(agenteId) % listaRetratosAgente.length]!;
+}
