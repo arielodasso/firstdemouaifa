@@ -111,12 +111,16 @@ export function RoleShell({
   userName,
   userMeta,
   nav,
+  avatar,
+  avatarFit = "cover",
 }: {
   role: string;
   roleLabel: string;
   userName: string;
   userMeta: string;
   nav: NavItem[];
+  avatar?: string;
+  avatarFit?: "cover" | "contain";
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -135,10 +139,24 @@ export function RoleShell({
           </span>
         </Link>
 
-        <div className="mt-6 rounded-md border border-white/10 bg-white/5 p-3">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gold">{roleLabel}</p>
-          <p className="mt-1 text-sm font-semibold text-navy-foreground">{userName}</p>
-          <p className="text-[11px] text-navy-foreground/60">{userMeta}</p>
+        <div className="mt-6 flex items-center gap-3 rounded-md border border-white/10 bg-white/5 p-3">
+          {avatar ? (
+            <img
+              src={avatar}
+              alt=""
+              loading="lazy"
+              width={44}
+              height={44}
+              className={`h-11 w-11 shrink-0 rounded-full border border-white/20 bg-white/90 object-${avatarFit} ${
+                avatarFit === "contain" ? "p-1" : ""
+              }`}
+            />
+          ) : null}
+          <div className="min-w-0">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gold">{roleLabel}</p>
+            <p className="mt-1 truncate text-sm font-semibold text-navy-foreground">{userName}</p>
+            <p className="truncate text-[11px] text-navy-foreground/60">{userMeta}</p>
+          </div>
         </div>
 
         <nav className="mt-6 flex flex-1 flex-col gap-0.5 overflow-y-auto">
