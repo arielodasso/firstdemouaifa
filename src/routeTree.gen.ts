@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgenteRouteImport } from './routes/agente'
 import { Route as ClubRouteImport } from './routes/club'
+import { Route as InicioRouteImport } from './routes/inicio'
 import { Route as JugadorRouteImport } from './routes/jugador'
 import { Route as UaifaRouteImport } from './routes/uaifa'
 import { Route as AgenteIndexRouteImport } from './routes/agente.index'
@@ -61,6 +62,11 @@ const AgenteRoute = AgenteRouteImport.update({
 const ClubRoute = ClubRouteImport.update({
   id: '/club',
   path: '/club',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InicioRoute = InicioRouteImport.update({
+  id: '/inicio',
+  path: '/inicio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JugadorRoute = JugadorRouteImport.update({
@@ -246,6 +252,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
   '/club': typeof ClubRouteWithChildren
+  '/inicio': typeof InicioRoute
   '/jugador': typeof JugadorRouteWithChildren
   '/uaifa': typeof UaifaRouteWithChildren
   '/agente/auditoria': typeof AgenteAuditoriaRoute
@@ -284,6 +291,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/inicio': typeof InicioRoute
   '/agente/auditoria': typeof AgenteAuditoriaRoute
   '/agente/cartera': typeof AgenteCarteraRoute
   '/agente/mercado': typeof AgenteMercadoRoute
@@ -323,6 +331,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/agente': typeof AgenteRouteWithChildren
   '/club': typeof ClubRouteWithChildren
+  '/inicio': typeof InicioRoute
   '/jugador': typeof JugadorRouteWithChildren
   '/uaifa': typeof UaifaRouteWithChildren
   '/agente/auditoria': typeof AgenteAuditoriaRoute
@@ -365,6 +374,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agente'
     | '/club'
+    | '/inicio'
     | '/jugador'
     | '/uaifa'
     | '/agente/auditoria'
@@ -403,6 +413,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/inicio'
     | '/agente/auditoria'
     | '/agente/cartera'
     | '/agente/mercado'
@@ -441,6 +452,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agente'
     | '/club'
+    | '/inicio'
     | '/jugador'
     | '/uaifa'
     | '/agente/auditoria'
@@ -482,6 +494,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgenteRoute: typeof AgenteRouteWithChildren
   ClubRoute: typeof ClubRouteWithChildren
+  InicioRoute: typeof InicioRoute
   JugadorRoute: typeof JugadorRouteWithChildren
   UaifaRoute: typeof UaifaRouteWithChildren
 }
@@ -507,6 +520,13 @@ declare module '@tanstack/react-router' {
       path: '/club'
       fullPath: '/club'
       preLoaderRoute: typeof ClubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inicio': {
+      id: '/inicio'
+      path: '/inicio'
+      fullPath: '/inicio'
+      preLoaderRoute: typeof InicioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jugador': {
@@ -861,6 +881,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgenteRoute: AgenteRouteWithChildren,
   ClubRoute: ClubRouteWithChildren,
+  InicioRoute: InicioRoute,
   JugadorRoute: JugadorRouteWithChildren,
   UaifaRoute: UaifaRouteWithChildren,
 }
