@@ -336,3 +336,7 @@
     grid-template-columns: 1fr;
   }
 }
+
+body #lovable-badge {
+  display: none !important;
+}
